@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>ExpectedObjects</id>
+    <version>1.1.1</version>
+    <title>ExpectedObjects</title>
+    <authors>Derek Greer</authors>
+    <owners>Derek Greer</owners>
+    <licenseUrl>https://github.com/derekgreer/expectedObjects/raw/master/license.txt</licenseUrl>
+    <projectUrl>http://github.com/derekgreer/expectedObjects</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Testing library for creating Expected Objects.</description>
+    <releaseNotes />
+    <copyright />
+    <language />
+    <tags>bdd tdd testing</tags>
+  </metadata>
+</package>
