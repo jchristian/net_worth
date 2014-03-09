@@ -19,14 +19,18 @@ namespace core.importers.parsers.readers
         {
             var builder = new StringBuilder();
             string next_line;
+
+            while (string.IsNullOrWhiteSpace((next_line = reader.ReadLine()))) {}
+            builder.AppendLine(next_line);
+
             while (!string.IsNullOrWhiteSpace((next_line = reader.ReadLine())))
                 builder.AppendLine(next_line);
-            return builder.ToString();
+            return builder.ToString().Trim();
         }
-
+        
         void AdvanceToTransactionSection(StreamReader reader)
         {
-            while (string.IsNullOrWhiteSpace(reader.ReadLine())) {}
+            while (!string.IsNullOrWhiteSpace(reader.ReadLine())) { }
         }
     }
 }
