@@ -93,6 +93,7 @@
     <Compile Include="importers\parsers\mappers\ParsedVanguardCVSFileMapperSpecs.cs" />
     <Compile Include="importers\parsers\mappers\ParsedVanguardCVSRowMapperSpecs.cs" />
     <Compile Include="importers\parsers\readers\VanguardTransactionFileReaderFactorySpecs.cs" />
+    <Compile Include="importers\parsers\VanguardTransactionParserSpecs.cs" />
     <Compile Include="importers\persisters\BrokerageTransactionPersisterSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

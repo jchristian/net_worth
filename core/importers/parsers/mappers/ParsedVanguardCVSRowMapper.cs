@@ -28,6 +28,7 @@ namespace core.importers.parsers.mappers
                        TransactionType = transaction_type_service.Find(parsed_row.TransactionType),
                        TransactionDescription = parsed_row.TransactionDescription,
                        Security = security_service.Find(parsed_row.InvestmentName),
+                       SecurityDescription = parsed_row.InvestmentName,
                        SharePrice = Decimal.Parse(parsed_row.SharePrice),
                        Shares = Decimal.Parse(parsed_row.Shares),
                        GrossAmount = Decimal.Parse(parsed_row.GrossAmount),

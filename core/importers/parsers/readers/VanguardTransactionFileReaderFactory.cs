@@ -5,7 +5,7 @@ namespace core.importers.parsers.readers
 {
     public class VanguardTransactionFileReaderFactory
     {
-        public TextReader CreateTransactionReader(string file_path)
+        public virtual TextReader CreateTransactionReader(string file_path)
         {
             using (var reader = File.OpenText(file_path))
             {

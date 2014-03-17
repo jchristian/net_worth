@@ -9,7 +9,7 @@ namespace core.importers.parsers
 {
     public class CSVFileParser
     {
-        public ParsedCSVFile Parse(TextReader source)
+        public virtual ParsedCSVFile Parse(TextReader source)
         {
             using (var reader = new CsvReader(source, true))
             {

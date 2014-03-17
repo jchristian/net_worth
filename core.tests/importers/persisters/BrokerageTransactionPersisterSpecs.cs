@@ -32,7 +32,8 @@ namespace core.tests.importers.persisters
                     context.SaveChanges();
                 }
 
-                transactions = Enumerable.Range(1, 3).Select(x => new BrokerageTransaction { ProcessDate = DummyDate.Get(), TradeDate = DummyDate.Get() }).ToArray();
+                var security = new Security();
+                transactions = Enumerable.Range(1, 3).Select(x => new BrokerageTransaction { ProcessDate = DummyDate.Get(), TradeDate = DummyDate.Get(), Security = security }).ToArray();
             };
 
             Because of = () =>

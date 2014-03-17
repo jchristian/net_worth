@@ -11,6 +11,7 @@ namespace data.models.write
         public TransactionType TransactionType { get; set; }
         public string TransactionDescription { get; set; }
         public Security Security { get; set; }
+        public string SecurityDescription { get; set; }
         public decimal SharePrice { get; set; }
         public decimal Shares { get; set; }
         public decimal GrossAmount { get; set; }

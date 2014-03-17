@@ -64,7 +64,6 @@
     <Compile Include="importers\parsers\mappers\ParsedVanguardCVSFileMapper.cs" />
     <Compile Include="importers\parsers\mappers\ParsedVanguardCVSRowMapper.cs" />
     <Compile Include="importers\parsers\ParsedCSVFile.cs" />
-    <Compile Include="importers\parsers\readers\VanguardFileExplorer.cs" />
     <Compile Include="importers\parsers\readers\VanguardTransactionFileReaderFactory.cs" />
     <Compile Include="importers\parsers\VanguardTransactionParser.cs" />
     <Compile Include="importers\persisters\BrokerageTransactionPersister.cs" />
