@@ -2,6 +2,7 @@ empty.cs
 obj/
 bin/
 *.chm
+*.DotSettings.user
 _[Rr]e[Ss]harper.*
 *.csproj.user
 *.[Rr]e[Ss]harper.user
