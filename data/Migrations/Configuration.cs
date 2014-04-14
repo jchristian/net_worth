@@ -1,4 +1,6 @@
+using System;
 using System.Data.Entity.Migrations;
+using System.Linq;
 using data.models.contexts;
 using data.models.write;
 
@@ -14,16 +16,15 @@ namespace data.Migrations
 
         protected override void Seed(DataContext context)
         {
-            context.TransactionDescriptions.AddRange(new[]
-            {
-                new TransactionDescription { Description = "Buy", TransactionTypeId = 1 },
-                new TransactionDescription { Description = "Sell", TransactionTypeId = 2 },
-                new TransactionDescription { Description = "Distribution_Dividend", TransactionTypeId = 3 },
-                new TransactionDescription { Description = "Distribution_LongTermCapGain", TransactionTypeId = 4 },
-                new TransactionDescription { Description = "Distribution_ShortTermCapGain", TransactionTypeId = 5 },
-                new TransactionDescription { Description = "Exchange", TransactionTypeId = 6 },
-                new TransactionDescription { Description = "Conversion", TransactionTypeId = 7 }
-            });
+            context.TransactionDescriptions.AddOrUpdate(x => x.TransactionTypeId,
+                Enum.GetValues(typeof(TransactionType))
+                .Cast<TransactionType>()
+                .Select(x => new TransactionDescription { TransactionTypeId = (int)x, Description = x.ToString() }).ToArray());
+
+            context.Securities.AddIfDoesNotExist(s => s.SpecId, Security.Missing);
+            context.Accounts.AddIfDoesNotExist(s => s.SpecId, Account.Missing);
+
+            context.SaveChanges();
         }
     }
 }

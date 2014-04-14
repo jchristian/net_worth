@@ -21,7 +21,8 @@ namespace core.services
                 FROM        Security s
                 INNER JOIN  SecurityDescription sd
                         ON  s.Id = sd.SecurityId
-                WHERE       sd.SecurityDescription LIKE @0", descriptor.ToLowerInvariant()).Single().TransactionTypeId;
+                WHERE       sd.SecurityDescription LIKE @0", descriptor.ToLowerInvariant()).SingleOrDefault().TransactionTypeId
+                                                           ?? TransactionType.Missing;
         }
     }
 }

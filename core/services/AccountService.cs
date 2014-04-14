@@ -15,7 +15,7 @@ namespace core.services
 
         public virtual Account Find(string account_number)
         {
-            return context.Accounts.Find(account_number);
+            return context.Accounts.Find(account_number) ?? Account.Missing;
         }
     }
 }

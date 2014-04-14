@@ -54,11 +54,12 @@
     <Compile Include="Migrations\201403082322313_InitialCreate.Designer.cs">
       <DependentUpon>201403082322313_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201403170344532_Security_Descriptions.cs" />
-    <Compile Include="Migrations\201403170344532_Security_Descriptions.Designer.cs">
-      <DependentUpon>201403170344532_Security_Descriptions.cs</DependentUpon>
+    <Compile Include="Migrations\201404132310277_Security_Descriptions.cs" />
+    <Compile Include="Migrations\201404132310277_Security_Descriptions.Designer.cs">
+      <DependentUpon>201404132310277_Security_Descriptions.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Migrations\SeedData.cs" />
     <Compile Include="models\contexts\DataContext.cs" />
     <Compile Include="models\NotifyPropertyChangedBase.cs" />
     <Compile Include="models\read\FinancialOverview.cs" />
@@ -79,8 +80,8 @@
     <EmbeddedResource Include="Migrations\201403082322313_InitialCreate.resx">
       <DependentUpon>201403082322313_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201403170344532_Security_Descriptions.resx">
-      <DependentUpon>201403170344532_Security_Descriptions.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201404132310277_Security_Descriptions.resx">
+      <DependentUpon>201404132310277_Security_Descriptions.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
