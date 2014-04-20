@@ -1,0 +1,28 @@
+﻿@model IEnumerable<data.models.write.BrokerageTransaction>
+
+<div>@Html.ActionLink("Transactions", "Import", "Transactions")</div>
+<div>
+    <table>
+        <thead>
+            <th>Trade Date</th>
+            <th>Account</th>
+            <th>Security</th>
+            <th>Type</th>
+            <th>Shares</th>
+            <th>Share Price</th>
+            <th>Amount</th>
+        </thead>
+        @foreach (var transaction in Model)
+        {
+            <tr>
+                <td>@transaction.TradeDate</td>
+                <td>@transaction.Account</td>
+                <td>@transaction.SecurityDescription</td>
+                <td>@transaction.TransactionType</td>
+                <td>@transaction.Shares</td>
+                <td>@transaction.SharePrice</td>
+                <td>@transaction.NetAmount</td>
+            </tr>
+        }
+    </table>
+</div>
