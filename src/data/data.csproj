@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{581ED8C6-1639-4629-AE29-3B2F2084727A}</ProjectGuid>
+    <ProjectGuid>{7933E456-4848-4D95-8DD4-7B3A74C02C9B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>core</RootNamespace>
-    <AssemblyName>core</AssemblyName>
+    <RootNamespace>data</RootNamespace>
+    <AssemblyName>data</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -35,17 +35,11 @@
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
-    <Reference Include="LumenWorks.Framework.IO">
-      <HintPath>..\packages\LumenWorks.Framework.IO.3.8.0\lib\net20\LumenWorks.Framework.IO.dll</HintPath>
-    </Reference>
-    <Reference Include="MoreLinq">
-      <HintPath>..\packages\morelinq.1.0.16006\lib\net35\MoreLinq.dll</HintPath>
+      <HintPath>..\..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -57,33 +51,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="extensions\DynamicExtensions.cs" />
-    <Compile Include="extensions\ObjectExtensions.cs" />
-    <Compile Include="extensions\StringExtensions.cs" />
-    <Compile Include="importers\FileTransactionImporter.cs" />
-    <Compile Include="importers\parsers\CSVFileParser.cs" />
-    <Compile Include="importers\parsers\IFileParser.cs" />
-    <Compile Include="importers\parsers\mappers\ParsedVanguardCVSFileMapper.cs" />
-    <Compile Include="importers\parsers\mappers\ParsedVanguardCVSRowMapper.cs" />
-    <Compile Include="importers\parsers\ParsedCSVFile.cs" />
-    <Compile Include="importers\parsers\readers\VanguardTransactionFileReaderFactory.cs" />
-    <Compile Include="importers\parsers\VanguardTransactionParser.cs" />
-    <Compile Include="importers\persisters\BrokerageTransactionPersister.cs" />
-    <Compile Include="importers\persisters\ICollectionPersister.cs" />
+    <Compile Include="helpers\SeedData.cs" />
+    <Compile Include="Migrations\201404200120468_initial_create.cs" />
+    <Compile Include="Migrations\201404200120468_initial_create.Designer.cs">
+      <DependentUpon>201404200120468_initial_create.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="models\contexts\DataContext.cs" />
+    <Compile Include="models\NotifyPropertyChangedBase.cs" />
+    <Compile Include="models\read\FinancialOverview.cs" />
+    <Compile Include="models\write\Account.cs" />
+    <Compile Include="models\write\AccountType.cs" />
+    <Compile Include="models\write\BrokerageTransaction.cs" />
+    <Compile Include="models\write\Security.cs" />
+    <Compile Include="models\write\SecurityDescription.cs" />
+    <Compile Include="models\write\TransactionDescription.cs" />
+    <Compile Include="models\write\TransactionType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="services\AccountService.cs" />
-    <Compile Include="services\SecurityService.cs" />
-    <Compile Include="services\TransactionTypeService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\data\data.csproj">
-      <Project>{7933e456-4848-4d95-8dd4-7b3a74c02c9b}</Project>
-      <Name>data</Name>
-    </ProjectReference>
+    <EmbeddedResource Include="Migrations\201404200120468_initial_create.resx">
+      <DependentUpon>201404200120468_initial_create.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -5,13 +5,13 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ui", "src\ui\ui.csproj", "{75598010-4BD1-4980-88D5-66D5CBB75FB6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "core", "core\core.csproj", "{581ED8C6-1639-4629-AE29-3B2F2084727A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "core", "src\core\core.csproj", "{581ED8C6-1639-4629-AE29-3B2F2084727A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "core.tests", "core.tests\core.tests.csproj", "{205E98B2-79A5-41E6-96E8-A378F8DFAA7A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "core.tests", "src\core.tests\core.tests.csproj", "{205E98B2-79A5-41E6-96E8-A378F8DFAA7A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "data", "data\data.csproj", "{7933E456-4848-4D95-8DD4-7B3A74C02C9B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "data", "src\data\data.csproj", "{7933E456-4848-4D95-8DD4-7B3A74C02C9B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ui.web", "ui.web\ui.web.csproj", "{D03019E0-2624-4235-9962-14CEF3E30BB2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ui.web", "src\ui.web\ui.web.csproj", "{D03019E0-2624-4235-9962-14CEF3E30BB2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
