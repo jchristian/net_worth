@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 
 namespace core.importers.parsers
 {
     public interface IFileParser<T>
     {
-        IEnumerable<T> Parse(string file_path);
+        IEnumerable<T> Parse(StreamReader reader);
     }
 }

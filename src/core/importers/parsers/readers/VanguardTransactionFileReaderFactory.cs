@@ -5,14 +5,10 @@ namespace core.importers.parsers.readers
 {
     public class VanguardTransactionFileReaderFactory
     {
-        public virtual TextReader CreateTransactionReader(string file_path)
+        public virtual TextReader CreateTransactionReader(StreamReader reader)
         {
-            using (var reader = File.OpenText(file_path))
-            {
-                AdvanceToTransactionSection(reader);
-                
-                return new StringReader(ReadCurrentSection(reader));
-            }
+            AdvanceToTransactionSection(reader);
+            return new StringReader(ReadCurrentSection(reader));
         }
 
         string ReadCurrentSection(StreamReader reader)

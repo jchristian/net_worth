@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using core.importers.parsers.mappers;
 using core.importers.parsers.readers;
 using data.models.write;
@@ -18,9 +19,9 @@ namespace core.importers.parsers
             this.mapper = mapper;
         }
 
-        public IEnumerable<BrokerageTransaction> Parse(string file_path)
+        public IEnumerable<BrokerageTransaction> Parse(StreamReader reader)
         {
-            var parsed_file = csv_parser.Parse(vanguard_transaction_file_reader_factory.CreateTransactionReader(file_path));
+            var parsed_file = csv_parser.Parse(vanguard_transaction_file_reader_factory.CreateTransactionReader(reader));
 
             return mapper.Map(parsed_file);
         }

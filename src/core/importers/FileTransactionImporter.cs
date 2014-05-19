@@ -1,4 +1,5 @@
-﻿using core.importers.parsers;
+﻿using System.IO;
+using core.importers.parsers;
 using core.importers.persisters;
 
 namespace core.importers
@@ -14,9 +15,9 @@ namespace core.importers
             this.persister = persister;
         }
 
-        public void Import(string file_path)
+        public void Import(StreamReader reader)
         {
-            persister.Persist(file_parser.Parse(file_path));
+            persister.Persist(file_parser.Parse(reader));
         }
     }
 }

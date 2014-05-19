@@ -1,4 +1,5 @@
 using System;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using data.helpers;
 using data.models.contexts;
@@ -6,8 +7,6 @@ using data.models.write;
 
 namespace data.Migrations
 {
-    using System.Data.Entity.Migrations;
-
     sealed class Configuration : DbMigrationsConfiguration<DataContext>
     {
         public Configuration()

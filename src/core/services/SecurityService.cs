@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Data.SqlClient;
+using System.Linq;
 using data.models.contexts;
 using data.models.write;
 
@@ -17,11 +18,12 @@ namespace core.services
         public virtual Security Find(string security_description)
         {
             return context.Securities.SqlQuery(@"
-                SELECT      s.*
-                FROM        Security s
-                INNER JOIN  SecurityDescription sd
-                        ON  s.Id = sd.SecurityId
-                WHERE       sd.SecurityDescription LIKE @0", security_description.ToLowerInvariant()).SingleOrDefault()
+                SELECT      DISTINCT
+                            s.*
+                FROM        Securities s
+                INNER JOIN  SecurityDescriptions sd
+                        ON  s.Id = sd.Security_Id
+                WHERE       sd.Description LIKE @0", new SqlParameter("@0", security_description.ToLowerInvariant())).SingleOrDefault()
                    ?? Security.Missing;
         }
     }

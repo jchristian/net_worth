@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using core.importers;
 using core.importers.parsers;
 using core.importers.persisters;
@@ -19,23 +20,23 @@ namespace core.tests.importers
         {
             Establish c = () =>
             {
-                file_path = "transactions.txt";
+                stream_reader = new StreamReader(new MemoryStream());
 
                 var file_parser = depends.on<IFileParser<BrokerageTransaction>>();
                 persister = depends.on<ICollectionPersister<BrokerageTransaction>>();
 
-                file_parser.setup(x => x.Parse(file_path)).Return(parsed_transactions);
+                file_parser.setup(x => x.Parse(stream_reader)).Return(parsed_transactions);
             };
 
             Because of = () =>
-                sut.Import(file_path);
+                sut.Import(stream_reader);
 
             It should_save_the_parsed_transactions = () =>
                 persister.Received().Persist(parsed_transactions);
             
             static ICollectionPersister<BrokerageTransaction> persister;
             static IEnumerable<BrokerageTransaction> parsed_transactions;
-            static string file_path;
+            static StreamReader stream_reader;
         }
     }
 }

@@ -20,14 +20,14 @@ namespace core.tests.importers.parsers
         {
             Establish c = () =>
             {
-                file_path = "the file path";
+                stream_reader = new StreamReader(new MemoryStream());
 
                 var csv_file_parser = depends.on<CSVFileParser>();
                 var vanguard_transaction_file_reader_factory = depends.on<VanguardTransactionFileReaderFactory>();
                 var mapper = depends.on<ParsedVanguardCVSFileMapper>();
 
                 var csv_vanguard_transactions = new StringReader("");
-                vanguard_transaction_file_reader_factory.setup(x => x.CreateTransactionReader(file_path)).Return(csv_vanguard_transactions);
+                vanguard_transaction_file_reader_factory.setup(x => x.CreateTransactionReader(stream_reader)).Return(csv_vanguard_transactions);
 
                 var parsed_vanguard_transactions = fake.an<ParsedCSVFile>();
                 csv_file_parser.setup(x => x.Parse(csv_vanguard_transactions)).Return(parsed_vanguard_transactions);
@@ -37,12 +37,12 @@ namespace core.tests.importers.parsers
             };
 
             Because of = () =>
-                actual = sut.Parse(file_path);
+                actual = sut.Parse(stream_reader);
 
             It should_return_the_transactions = () =>
                 actual.Should().Equal(brokerage_transactions);
 
-            static string file_path;
+            static StreamReader stream_reader;
             static IEnumerable<BrokerageTransaction> actual;
             static BrokerageTransaction[] brokerage_transactions;
         }

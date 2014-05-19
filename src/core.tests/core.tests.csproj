@@ -95,7 +95,6 @@
     <Compile Include="importers\parsers\mappers\ParsedVanguardCVSRowMapperSpecs.cs" />
     <Compile Include="importers\parsers\readers\VanguardTransactionFileReaderFactorySpecs.cs" />
     <Compile Include="importers\parsers\VanguardTransactionParserSpecs.cs" />
-    <Compile Include="importers\persisters\BrokerageTransactionPersisterSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -119,6 +118,9 @@
     <Content Include="importers\parsers\readers\vanguard_transaction_file_reader_factory_specs_test_file %28without transactions%29.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

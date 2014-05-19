@@ -1,4 +1,5 @@
-﻿using data.models.contexts;
+﻿using System.Linq;
+using data.models.contexts;
 using data.models.write;
 
 namespace core.services
@@ -15,7 +16,7 @@ namespace core.services
 
         public virtual Account Find(string account_number)
         {
-            return context.Accounts.Find(account_number) ?? Account.Missing;
+            return context.Accounts.SingleOrDefault(x => x.Number == account_number) ?? Account.Missing;
         }
     }
 }

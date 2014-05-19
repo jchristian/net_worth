@@ -48,6 +48,12 @@
       <HintPath>..\..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="StructureMap">
+      <HintPath>..\..\packages\structuremap.3.0.3.116\lib\net40\StructureMap.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap.Net4">
+      <HintPath>..\..\packages\structuremap.3.0.3.116\lib\net40\StructureMap.Net4.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -161,6 +167,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TransactionsController.cs" />
+    <Compile Include="DependencyResolution\CoreRegistry.cs" />
+    <Compile Include="DependencyResolution\DataRegistry.cs" />
+    <Compile Include="DependencyResolution\DependencyBootstrapper.cs" />
+    <Compile Include="DependencyResolution\StructureMapControllerFactory.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -215,6 +225,10 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\core\core.csproj">
+      <Project>{581ed8c6-1639-4629-ae29-3b2f2084727a}</Project>
+      <Name>core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\data\data.csproj">
       <Project>{7933e456-4848-4d95-8dd4-7b3a74c02c9b}</Project>
       <Name>data</Name>

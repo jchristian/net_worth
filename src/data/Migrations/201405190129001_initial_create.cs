@@ -68,6 +68,18 @@ namespace data.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
+                "dbo.SecurityDescriptions",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Description = c.String(),
+                        Security_Id = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Securities", t => t.Security_Id, cascadeDelete: true)
+                .Index(t => t.Security_Id);
+            
+            CreateTable(
                 "dbo.TransactionDescriptions",
                 c => new
                     {
@@ -81,11 +93,14 @@ namespace data.Migrations
         
         public override void Down()
         {
+            DropForeignKey("dbo.SecurityDescriptions", "Security_Id", "dbo.Securities");
             DropForeignKey("dbo.BrokerageTransactions", "Security_Id", "dbo.Securities");
             DropForeignKey("dbo.BrokerageTransactions", "Account_Id", "dbo.Accounts");
+            DropIndex("dbo.SecurityDescriptions", new[] { "Security_Id" });
             DropIndex("dbo.BrokerageTransactions", new[] { "Security_Id" });
             DropIndex("dbo.BrokerageTransactions", new[] { "Account_Id" });
             DropTable("dbo.TransactionDescriptions");
+            DropTable("dbo.SecurityDescriptions");
             DropTable("dbo.FinancialOverviews");
             DropTable("dbo.Securities");
             DropTable("dbo.BrokerageTransactions");

@@ -1,4 +1,5 @@
-﻿using core.importers.parsers.readers;
+﻿using System.IO;
+using core.importers.parsers.readers;
 using developwithpassion.specifications.nsubstitue;
 using FluentAssertions;
 using Machine.Specifications;
@@ -15,7 +16,12 @@ namespace core.tests.importers.parsers.readers
             public class with_transactions
             {
                 Because of = () =>
-                    reader_contents = sut.CreateTransactionReader(@".\importers\parsers\readers\vanguard_transaction_file_reader_factory_specs_test_file (with transactions).txt").ReadToEnd();
+                {
+                    using(var stream = new StreamReader(File.OpenRead(@".\importers\parsers\readers\vanguard_transaction_file_reader_factory_specs_test_file (with transactions).txt")))
+                    {
+                        reader_contents = sut.CreateTransactionReader(stream).ReadToEnd();
+                    }
+                };
 
                 It should_read_the_correct_lines = () =>
                 {
@@ -27,12 +33,18 @@ namespace core.tests.importers.parsers.readers
                 };
 
                 static string reader_contents;
+                static StreamReader stream;
             }
 
             public class without_transactions
             {
                 Because of = () =>
-                    reader_contents = sut.CreateTransactionReader(@".\importers\parsers\readers\vanguard_transaction_file_reader_factory_specs_test_file (without transactions).txt").ReadToEnd();
+                {
+                    using (var stream = new StreamReader(File.OpenRead(@".\importers\parsers\readers\vanguard_transaction_file_reader_factory_specs_test_file (without transactions).txt")))
+                    {
+                        reader_contents = sut.CreateTransactionReader(stream).ReadToEnd();
+                    }
+                };
 
                 It should_read_the_correct_lines = () =>
                 {

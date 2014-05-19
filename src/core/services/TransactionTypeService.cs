@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Data.SqlClient;
+using System.Linq;
 using core.extensions;
 using data.models.contexts;
 using data.models.write;
@@ -17,13 +18,12 @@ namespace core.services
 
         public virtual TransactionType Find(string descriptor)
         {
-            return (TransactionType)(context.TransactionDescriptions.SqlQuery(@"
-                SELECT      s.*
-                FROM        Security s
-                INNER JOIN  SecurityDescription sd
-                        ON  s.Id = sd.SecurityId
-                WHERE       sd.SecurityDescription LIKE @0", descriptor.ToLowerInvariant()).SingleOrDefault().IfNotNull(x => x.TransactionTypeId)
-                                                           ?? (int?)TransactionType.Missing).Value;
+            var db_sql_query = context.TransactionDescriptions.SqlQuery(@"
+                SELECT      t.*
+                FROM        TransactionDescriptions t
+                WHERE       t.Description LIKE @0", new SqlParameter("@0", descriptor.ToLowerInvariant())).ToList();
+            return (TransactionType)(db_sql_query.SingleOrDefault().IfNotNull(x => x.TransactionTypeId)
+                                     ?? (int?)TransactionType.Missing).Value;
         }
     }
 }
