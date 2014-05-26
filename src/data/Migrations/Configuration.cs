@@ -1,7 +1,6 @@
 using System;
 using System.Data.Entity.Migrations;
 using System.Linq;
-using data.helpers;
 using data.models.contexts;
 using data.models.write;
 
@@ -21,9 +20,6 @@ namespace data.Migrations
                 Enum.GetValues(typeof(TransactionType))
                 .Cast<TransactionType>()
                 .Select(x => new TransactionDescription { TransactionTypeId = (int)x, Description = x.ToString() }).ToArray());
-
-            context.Securities.AddIfDoesNotExist(s => s.SpecId, Security.Missing);
-            context.Accounts.AddIfDoesNotExist(s => s.SpecId, Account.Missing);
 
             context.SaveChanges();
         }

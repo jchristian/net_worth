@@ -7,18 +7,22 @@ namespace data.models.contexts
     public class DataContext : DbContext
     {
         //Write
-        public DbSet<Account> Accounts { get; set; }
-        public DbSet<BrokerageTransaction> BrokerageTransactions { get; set; }
-        public DbSet<Security> Securities { get; set; }
-        public DbSet<SecurityDescription> SecurityDescriptions { get; set; }
-        public DbSet<TransactionDescription> TransactionDescriptions { get; set; }
+        public virtual DbSet<Account> Accounts { get; set; }
+        public virtual DbSet<BrokerageTransaction> BrokerageTransactions { get; set; }
+        public virtual DbSet<Security> Securities { get; set; }
+        public virtual DbSet<SecurityDescription> SecurityDescriptions { get; set; }
+        public virtual DbSet<TransactionDescription> TransactionDescriptions { get; set; }
 
         //Read
-        public DbSet<FinancialOverview> FinancialOverviews { get; set; }
+        public virtual DbSet<FinancialOverview> FinancialOverviews { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Properties<decimal>().Configure(prop => prop.HasPrecision(19, 6));
+
             modelBuilder.Entity<SecurityDescription>().HasRequired(x => x.Security);
+            modelBuilder.Entity<BrokerageTransaction>().HasRequired(x => x.Account);
+            modelBuilder.Entity<BrokerageTransaction>().HasOptional(x => x.Security);
         }
     }
 }

@@ -31,34 +31,34 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="developwithpassion.specifications">
-      <HintPath>..\packages\developwithpassion.specifications.nsubstitue.0.6.0\lib\developwithpassion.specifications.dll</HintPath>
+      <HintPath>..\..\packages\developwithpassion.specifications.nsubstitue.0.6.0\lib\developwithpassion.specifications.dll</HintPath>
     </Reference>
     <Reference Include="developwithpassion.specifications.nsubstitue">
-      <HintPath>..\packages\developwithpassion.specifications.nsubstitue.0.6.0\lib\developwithpassion.specifications.nsubstitue.dll</HintPath>
+      <HintPath>..\..\packages\developwithpassion.specifications.nsubstitue.0.6.0\lib\developwithpassion.specifications.nsubstitue.dll</HintPath>
     </Reference>
     <Reference Include="FluentAssertions">
-      <HintPath>..\packages\FluentAssertions.2.2.0.0\lib\net45\FluentAssertions.dll</HintPath>
+      <HintPath>..\..\packages\FluentAssertions.2.2.0.0\lib\net45\FluentAssertions.dll</HintPath>
     </Reference>
     <Reference Include="Machine.Fakes">
-      <HintPath>..\packages\Machine.Fakes.2.1.0\lib\net40\Machine.Fakes.dll</HintPath>
+      <HintPath>..\..\packages\Machine.Fakes.2.1.0\lib\net40\Machine.Fakes.dll</HintPath>
     </Reference>
     <Reference Include="Machine.Fakes.Adapters.NSubstitute">
-      <HintPath>..\packages\Machine.Fakes.NSubstitute.2.1.0\lib\net40\Machine.Fakes.Adapters.NSubstitute.dll</HintPath>
+      <HintPath>..\..\packages\Machine.Fakes.NSubstitute.2.1.0\lib\net40\Machine.Fakes.Adapters.NSubstitute.dll</HintPath>
     </Reference>
     <Reference Include="Machine.Specifications">
-      <HintPath>..\packages\Machine.Specifications.0.7.0\lib\net45\Machine.Specifications.dll</HintPath>
+      <HintPath>..\..\packages\Machine.Specifications.0.7.0\lib\net45\Machine.Specifications.dll</HintPath>
     </Reference>
     <Reference Include="Machine.Specifications.Clr4">
-      <HintPath>..\packages\Machine.Specifications.0.7.0\lib\net45\Machine.Specifications.Clr4.dll</HintPath>
+      <HintPath>..\..\packages\Machine.Specifications.0.7.0\lib\net45\Machine.Specifications.Clr4.dll</HintPath>
     </Reference>
     <Reference Include="NSubstitute">
-      <HintPath>..\packages\NSubstitute.1.7.2.0\lib\NET45\NSubstitute.dll</HintPath>
+      <HintPath>..\..\packages\NSubstitute.1.7.2.0\lib\NET45\NSubstitute.dll</HintPath>
     </Reference>
     <Reference Include="StructureMap">
-      <HintPath>..\packages\structuremap.3.0.3.116\lib\net40\StructureMap.dll</HintPath>
+      <HintPath>..\..\packages\structuremap.3.0.3.116\lib\net40\StructureMap.dll</HintPath>
     </Reference>
     <Reference Include="StructureMap.Net4">
-      <HintPath>..\packages\structuremap.3.0.3.116\lib\net40\StructureMap.Net4.dll</HintPath>
+      <HintPath>..\..\packages\structuremap.3.0.3.116\lib\net40\StructureMap.Net4.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -77,15 +77,15 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\src\core\core.csproj">
+    <ProjectReference Include="..\..\src\core\core.csproj">
       <Project>{581ed8c6-1639-4629-ae29-3b2f2084727a}</Project>
       <Name>core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\src\data\data.csproj">
+    <ProjectReference Include="..\data\data.csproj">
       <Project>{7933e456-4848-4d95-8dd4-7b3a74c02c9b}</Project>
       <Name>data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\src\ui.web\ui.web.csproj">
+    <ProjectReference Include="..\ui.web\ui.web.csproj">
       <Project>{d03019e0-2624-4235-9962-14cef3e30bb2}</Project>
       <Name>ui.web</Name>
     </ProjectReference>

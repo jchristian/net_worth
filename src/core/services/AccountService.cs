@@ -8,7 +8,7 @@ namespace core.services
     {
         DataContext context;
 
-        protected AccountService() {}
+        protected AccountService() { }
         public AccountService(DataContext context)
         {
             this.context = context;
@@ -16,7 +16,14 @@ namespace core.services
 
         public virtual Account Find(string account_number)
         {
-            return context.Accounts.SingleOrDefault(x => x.Number == account_number) ?? Account.Missing;
+            return context.Accounts.SingleOrDefault(x => x.Number == account_number);
+        }
+
+        public virtual Account Create(string account_number)
+        {
+            var account = context.Accounts.Add(new Account { Number = account_number });
+            context.SaveChanges();
+            return context.Accounts.Find(account.Id);
         }
     }
 }

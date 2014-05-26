@@ -1,4 +1,5 @@
-﻿@model IEnumerable<data.models.write.BrokerageTransaction>
+﻿@using Microsoft.Ajax.Utilities
+@model IEnumerable<data.models.write.BrokerageTransaction>
 
 <div>
     <form action="/Transactions/Import" method="post" enctype="multipart/form-data">
@@ -21,8 +22,8 @@
         {
             <tr>
                 <td>@transaction.TradeDate</td>
-                <td>@transaction.Account</td>
-                <td>@transaction.SecurityDescription</td>
+                <td>@transaction.Account.IfNotNull(x => x.Number)</td>
+                <td>@transaction.Security.IfNotNull(x => x.Description)</td>
                 <td>@transaction.TransactionType</td>
                 <td>@transaction.Shares</td>
                 <td>@transaction.SharePrice</td>

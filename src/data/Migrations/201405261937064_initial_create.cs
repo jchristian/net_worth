@@ -1,6 +1,5 @@
 namespace data.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
     
     public partial class initial_create : DbMigration
@@ -24,23 +23,23 @@ namespace data.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
+                        AccountId = c.Int(nullable: false),
                         TradeDate = c.DateTime(nullable: false),
                         ProcessDate = c.DateTime(nullable: false),
                         TransactionType = c.Int(nullable: false),
                         TransactionDescription = c.String(),
+                        SecurityId = c.Int(),
                         SecurityDescription = c.String(),
-                        SharePrice = c.Decimal(nullable: false, precision: 18, scale: 2),
-                        Shares = c.Decimal(nullable: false, precision: 18, scale: 2),
-                        GrossAmount = c.Decimal(nullable: false, precision: 18, scale: 2),
-                        NetAmount = c.Decimal(nullable: false, precision: 18, scale: 2),
-                        Account_Id = c.Int(),
-                        Security_Id = c.Int(),
+                        SharePrice = c.Decimal(nullable: false, precision: 19, scale: 6),
+                        Shares = c.Decimal(nullable: false, precision: 19, scale: 6),
+                        GrossAmount = c.Decimal(nullable: false, precision: 19, scale: 6),
+                        NetAmount = c.Decimal(nullable: false, precision: 19, scale: 6),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Accounts", t => t.Account_Id)
-                .ForeignKey("dbo.Securities", t => t.Security_Id)
-                .Index(t => t.Account_Id)
-                .Index(t => t.Security_Id);
+                .ForeignKey("dbo.Accounts", t => t.AccountId, cascadeDelete: true)
+                .ForeignKey("dbo.Securities", t => t.SecurityId)
+                .Index(t => t.AccountId)
+                .Index(t => t.SecurityId);
             
             CreateTable(
                 "dbo.Securities",
@@ -48,6 +47,8 @@ namespace data.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         SpecId = c.Int(),
+                        Ticker = c.String(),
+                        Description = c.String(),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -57,13 +58,13 @@ namespace data.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         Date = c.DateTime(nullable: false),
-                        Income = c.Decimal(precision: 18, scale: 2),
-                        Spending = c.Decimal(precision: 18, scale: 2),
-                        Savings = c.Decimal(precision: 18, scale: 2),
-                        Dividends = c.Decimal(nullable: false, precision: 18, scale: 2),
-                        Appreciation = c.Decimal(nullable: false, precision: 18, scale: 2),
-                        ChangeInNetWorth = c.Decimal(nullable: false, precision: 18, scale: 2),
-                        NetWorth = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        Income = c.Decimal(precision: 19, scale: 6),
+                        Spending = c.Decimal(precision: 19, scale: 6),
+                        Savings = c.Decimal(precision: 19, scale: 6),
+                        Dividends = c.Decimal(nullable: false, precision: 19, scale: 6),
+                        Appreciation = c.Decimal(nullable: false, precision: 19, scale: 6),
+                        ChangeInNetWorth = c.Decimal(nullable: false, precision: 19, scale: 6),
+                        NetWorth = c.Decimal(nullable: false, precision: 19, scale: 6),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -94,11 +95,11 @@ namespace data.Migrations
         public override void Down()
         {
             DropForeignKey("dbo.SecurityDescriptions", "Security_Id", "dbo.Securities");
-            DropForeignKey("dbo.BrokerageTransactions", "Security_Id", "dbo.Securities");
-            DropForeignKey("dbo.BrokerageTransactions", "Account_Id", "dbo.Accounts");
+            DropForeignKey("dbo.BrokerageTransactions", "SecurityId", "dbo.Securities");
+            DropForeignKey("dbo.BrokerageTransactions", "AccountId", "dbo.Accounts");
             DropIndex("dbo.SecurityDescriptions", new[] { "Security_Id" });
-            DropIndex("dbo.BrokerageTransactions", new[] { "Security_Id" });
-            DropIndex("dbo.BrokerageTransactions", new[] { "Account_Id" });
+            DropIndex("dbo.BrokerageTransactions", new[] { "SecurityId" });
+            DropIndex("dbo.BrokerageTransactions", new[] { "AccountId" });
             DropTable("dbo.TransactionDescriptions");
             DropTable("dbo.SecurityDescriptions");
             DropTable("dbo.FinancialOverviews");

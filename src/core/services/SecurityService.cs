@@ -23,8 +23,7 @@ namespace core.services
                 FROM        Securities s
                 INNER JOIN  SecurityDescriptions sd
                         ON  s.Id = sd.Security_Id
-                WHERE       sd.Description LIKE @0", new SqlParameter("@0", security_description.ToLowerInvariant())).SingleOrDefault()
-                   ?? Security.Missing;
+                WHERE       sd.Description LIKE @0", new SqlParameter("@0", security_description.ToLowerInvariant())).SingleOrDefault();
         }
     }
 }

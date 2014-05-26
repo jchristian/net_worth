@@ -69,9 +69,11 @@
     <Compile Include="importers\parsers\readers\VanguardTransactionFileReaderFactory.cs" />
     <Compile Include="importers\parsers\VanguardTransactionParser.cs" />
     <Compile Include="importers\persisters\BrokerageTransactionPersister.cs" />
+    <Compile Include="importers\persisters\DuplicateBrokerageTransactionFilter.cs" />
     <Compile Include="importers\persisters\ICollectionPersister.cs" />
     <Compile Include="importers\VanguardTransactionImporter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="queries\Repository.cs" />
     <Compile Include="services\AccountService.cs" />
     <Compile Include="services\SecurityService.cs" />
     <Compile Include="services\TransactionTypeService.cs" />

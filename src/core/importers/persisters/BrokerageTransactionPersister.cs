@@ -7,17 +7,17 @@ namespace core.importers.persisters
 {
     public class BrokerageTransactionPersister : ICollectionPersister<BrokerageTransaction>
     {
-        public void Persist(IEnumerable<BrokerageTransaction> transactions)
-        {
-            using (var context = new DataContext())
-            {
-                transactions.ForEach(transaction =>
-                {
-                    context.BrokerageTransactions.Add(transaction);
-                });
+        DataContext context;
 
-                context.SaveChanges();
-            }
+        public BrokerageTransactionPersister(DataContext context)
+        {
+            this.context = context;
+        }
+
+        public virtual void Persist(IEnumerable<BrokerageTransaction> transactions)
+        {
+            transactions.ForEach(transaction => context.BrokerageTransactions.Add(transaction));
+            context.SaveChanges();
         }
     }
 }

@@ -1,7 +1,5 @@
-﻿using System;
+﻿using System.Data.Entity;
 using System.IO;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using core.importers;
 using data.models.contexts;
@@ -10,11 +8,13 @@ namespace ui.web.Controllers
 {
     public class TransactionsController : Controller
     {
-        readonly VanguardTransactionImporter file_importer;
+        VanguardTransactionImporter file_importer;
+        DataContext context;
 
-        public TransactionsController(VanguardTransactionImporter file_importer)
+        public TransactionsController(VanguardTransactionImporter file_importer, DataContext context)
         {
             this.file_importer = file_importer;
+            this.context = context;
         }
 
         public ActionResult Index()
@@ -24,10 +24,10 @@ namespace ui.web.Controllers
 
         public ActionResult List()
         {
-            using (var context = new DataContext())
-            {
-                return View(context.BrokerageTransactions.ToArray());
-            }
+            var brokerage_transactions = context.BrokerageTransactions
+                                                .Include(x => x.Account)
+                                                .Include(x => x.Security);
+            return View(brokerage_transactions);
         }
 
         public ActionResult Import()
@@ -39,8 +39,6 @@ namespace ui.web.Controllers
                     continue;
                 var reader = new StreamReader(hpf.InputStream);
                 file_importer.Import(reader);
-                //var savedFileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Path.GetFileName(hpf.FileName));
-                //hpf.SaveAs(savedFileName);
             }
 
             return RedirectToAction("List");
