@@ -1,0 +1,29 @@
+﻿@model data.models.write.BrokerageTransaction
+
+<h4>Transaction</h4>
+<hr />
+<dl class="dl-horizontal">
+    <dt>@Html.DisplayName("Account Name")</dt>
+    <dd>@Html.DisplayFor(x => x.Account.Name)</dd>
+
+    <dt>@Html.DisplayName("Account Number")</dt>
+    <dd>@Html.DisplayFor(x => x.Account.Number)</dd>
+
+    <dt>@Html.DisplayName("Trade Date")</dt>
+    <dd>@Html.DisplayFor(x => x.TradeDate)</dd>
+
+    <dt>@Html.DisplayName("Transaction Type")</dt>
+    <dd>@Html.DisplayFor(x => x.TransactionType)</dd>
+
+    <dt>@Html.DisplayName("Number of Shares")</dt>
+    <dd>@Html.DisplayFor(x => x.Shares)</dd>
+
+    <dt>@Html.DisplayName("Share Price")</dt>
+    <dd>@Html.DisplayFor(x => x.SharePrice)</dd>
+
+    <dt>@Html.DisplayName("Gross Amount")</dt>
+    <dd>@Html.DisplayFor(x => x.GrossAmount)</dd>
+
+    <dt>@Html.DisplayName("Security Description")</dt>
+    <dd>@Html.DisplayFor(x => x.SecurityDescription)</dd>
+</dl>

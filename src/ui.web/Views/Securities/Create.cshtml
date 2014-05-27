@@ -1,0 +1,36 @@
+﻿@model data.models.write.Security
+@{
+    ViewBag.Title = "Create Security";
+}
+
+<h2>Create</h2>
+
+@using(Html.BeginForm("Create", "Securities"))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Security</h4>
+        <hr />
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.Ticker, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Ticker)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.Description, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Description)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}

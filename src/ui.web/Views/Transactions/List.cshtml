@@ -1,5 +1,8 @@
 ﻿@using Microsoft.Ajax.Utilities
 @model IEnumerable<data.models.write.BrokerageTransaction>
+@{
+    ViewBag.Title = "Transaction List";
+}
 
 <div>
     <form action="/Transactions/Import" method="post" enctype="multipart/form-data">
@@ -23,7 +26,14 @@
             <tr>
                 <td>@transaction.TradeDate</td>
                 <td>@transaction.Account.IfNotNull(x => x.Number)</td>
-                <td>@transaction.Security.IfNotNull(x => x.Description)</td>
+                <td>@if (transaction.Security != null)
+                    {
+                        @transaction.Security.Description
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Not Found", "AddSecurityDescriptor", "Transactions", new { id = transaction.Id }, null)
+                    }</td>
                 <td>@transaction.TransactionType</td>
                 <td>@transaction.Shares</td>
                 <td>@transaction.SharePrice</td>

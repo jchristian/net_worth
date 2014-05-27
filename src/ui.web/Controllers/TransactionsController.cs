@@ -1,8 +1,11 @@
 ﻿using System.Data.Entity;
 using System.IO;
+using System.Linq;
+using System.Net;
 using System.Web.Mvc;
 using core.importers;
 using data.models.contexts;
+using ui.web.Models.Transactions;
 
 namespace ui.web.Controllers
 {
@@ -26,7 +29,8 @@ namespace ui.web.Controllers
         {
             var brokerage_transactions = context.BrokerageTransactions
                                                 .Include(x => x.Account)
-                                                .Include(x => x.Security);
+                                                .Include(x => x.Security)
+                                                .ToList();
             return View(brokerage_transactions);
         }
 
@@ -42,6 +46,25 @@ namespace ui.web.Controllers
             }
 
             return RedirectToAction("List");
+        }
+
+        public ActionResult AddSecurityDescriptor(int? id)
+        {
+            if(id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var brokerage_transaction = context.BrokerageTransactions.Find(id);
+
+            if (brokerage_transaction == null)
+                return new HttpNotFoundResult();
+
+            return View(new AssociateSecurityModel { Transaction = brokerage_transaction, Securities = context.Securities.ToList() });
+        }
+
+        [Route("Transactions/AssociateSecurity/{transaction_id}/{security_id}")]
+        public ActionResult AssociateSecurity(int transaction_id, int security_id)
+        {
+            return new HttpNotFoundResult();
         }
     }
 }
