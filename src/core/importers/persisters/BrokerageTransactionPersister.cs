@@ -9,6 +9,7 @@ namespace core.importers.persisters
     {
         DataContext context;
 
+        protected BrokerageTransactionPersister() {}
         public BrokerageTransactionPersister(DataContext context)
         {
             this.context = context;

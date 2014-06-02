@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using core;
 using core.importers;
 using data.models.contexts;
 using ui.web.Models.Transactions;
@@ -12,11 +13,15 @@ namespace ui.web.Controllers
     public class TransactionsController : Controller
     {
         VanguardTransactionImporter file_importer;
+        SecurityDescriptionAssociator security_description_associator;
         DataContext context;
 
-        public TransactionsController(VanguardTransactionImporter file_importer, DataContext context)
+        public TransactionsController(VanguardTransactionImporter file_importer,
+                                      SecurityDescriptionAssociator security_description_associator,
+                                      DataContext context)
         {
             this.file_importer = file_importer;
+            this.security_description_associator = security_description_associator;
             this.context = context;
         }
 
@@ -45,7 +50,7 @@ namespace ui.web.Controllers
                 file_importer.Import(reader);
             }
 
-            return RedirectToAction("List");
+            return RedirectToAction("Index");
         }
 
         public ActionResult AddSecurityDescriptor(int? id)
@@ -64,7 +69,9 @@ namespace ui.web.Controllers
         [Route("Transactions/AssociateSecurity/{transaction_id}/{security_id}")]
         public ActionResult AssociateSecurity(int transaction_id, int security_id)
         {
-            return new HttpNotFoundResult();
+            security_description_associator.Associate(transaction_id, security_id);
+
+            return RedirectToAction("Index");
         }
     }
 }

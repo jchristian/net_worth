@@ -1,0 +1,23 @@
+﻿@using Microsoft.Ajax.Utilities
+@model IEnumerable<data.models.write.Security>
+@{
+    ViewBag.Title = "Securities List";
+}
+<div>
+    <table>
+        <thead>
+            <th>Ticker</th>
+            <th>Name</th>
+        </thead>
+        @foreach (var security in Model)
+        {
+            <tr>
+                <td>@security.Ticker</td>
+                <td>@security.Description</td>
+                <td>@Html.ActionLink("Edit", "Edit", new { Id = security.Id })</td>
+                <td>@Html.ActionLink("Delete", "Delete", new { Id = security.Id })</td>
+            </tr>
+        }
+    </table>
+    <p>@Html.ActionLink("Create", "Create")</p>
+</div>

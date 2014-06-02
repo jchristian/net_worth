@@ -1,4 +1,4 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
 
 namespace data.models.write
 {
@@ -8,6 +8,7 @@ namespace data.models.write
         public int? SpecId { get; set; }
         public string Ticker { get; set; }
         public string Description { get; set; }
-        public IDbSet<SecurityDescription> SecurityDescriptions { get; set; }
+        public ICollection<SecurityDescription> SecurityDescriptions { get; set; }
+        public ICollection<BrokerageTransaction> BrokerageTransactions { get; set; }
     }
 }

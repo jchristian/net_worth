@@ -217,6 +217,9 @@
     <Content Include="Views\Transactions\AddSecurityDescriptor.cshtml" />
     <Content Include="Views\Transactions\Detail.cshtml" />
     <Content Include="Views\Securities\Create.cshtml" />
+    <Content Include="Views\Securities\Edit.cshtml" />
+    <Content Include="Views\Securities\Detail.cshtml" />
+    <Content Include="Views\Securities\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

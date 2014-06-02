@@ -28,7 +28,7 @@
                 <td>@transaction.Account.IfNotNull(x => x.Number)</td>
                 <td>@if (transaction.Security != null)
                     {
-                        @transaction.Security.Description
+                        @transaction.Security.Ticker
                     }
                     else
                     {

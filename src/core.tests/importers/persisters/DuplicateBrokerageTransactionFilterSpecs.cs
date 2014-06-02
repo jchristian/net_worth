@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using core.importers.persisters;
 using core.queries;
 using core.tests.helpers;
-using data.models.contexts;
 using data.models.write;
 using developwithpassion.specifications.extensions;
 using developwithpassion.specifications.nsubstitue;
@@ -28,7 +25,7 @@ namespace core.tests.importers.persisters
                                         {
                                             Account = new Account { Id = 1 },
                                             TradeDate = new DateTime(2010, 1, 1),
-                                            Security = new Security {  Id = 2 },
+                                            SecurityId = 2,
                                             SharePrice = 10,
                                             Shares = 20,
                                             TransactionType = TransactionType.Buy
@@ -37,7 +34,7 @@ namespace core.tests.importers.persisters
                                                 {
                                                     Account = new Account { Id = 1 },
                                                     TradeDate = new DateTime(2010, 1, 1),
-                                                    Security = new Security { Id = 3 },
+                                                    SecurityId = 3,
                                                     SharePrice = 10,
                                                     Shares = 20,
                                                     TransactionType = TransactionType.Buy
@@ -46,7 +43,7 @@ namespace core.tests.importers.persisters
                                                        {
                                                            Account = new Account { Id = 1 },
                                                            TradeDate = new DateTime(2010, 1, 1),
-                                                           Security = new Security { Id = 4 },
+                                                           SecurityId = 4,
                                                            SharePrice = 10,
                                                            Shares = 20,
                                                            TransactionType = TransactionType.Buy

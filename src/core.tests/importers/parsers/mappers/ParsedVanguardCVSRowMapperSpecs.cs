@@ -5,6 +5,7 @@ using core.services;
 using data.models.write;
 using developwithpassion.specifications.extensions;
 using developwithpassion.specifications.nsubstitue;
+//using ExpectedObjects;
 using ExpectedObjects;
 using Machine.Specifications;
 
@@ -49,12 +50,12 @@ namespace core.tests.importers.parsers.mappers
             It should_map_all_the_properties_correctly = () =>
                 new
                 {
-                    Account = account,
+                    AccountId = account.Id,
                     TradeDate = new DateTime(2012, 7, 5),
                     ProcessDate = new DateTime(2012, 7, 6),
                     TransactionType = TransactionType.Buy,
                     TransactionDescription = "Description of the buy",
-                    Security = prime_money_market_security,
+                    SecurityId = prime_money_market_security.Id,
                     SharePrice = 2m,
                     Shares = 1000m,
                     GrossAmount = 2000m,

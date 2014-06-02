@@ -23,6 +23,11 @@ namespace data.models.contexts
             modelBuilder.Entity<SecurityDescription>().HasRequired(x => x.Security);
             modelBuilder.Entity<BrokerageTransaction>().HasRequired(x => x.Account);
             modelBuilder.Entity<BrokerageTransaction>().HasOptional(x => x.Security);
+
+            modelBuilder.Entity<Security>()
+                .HasMany(x => x.BrokerageTransactions)
+                .WithOptional(x => x.Security)
+                .WillCascadeOnDelete(false);
         }
     }
 }

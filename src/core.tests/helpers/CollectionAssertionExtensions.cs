@@ -16,6 +16,7 @@ namespace core.tests.helpers
         public static void ShouldOnlyContain<T>(this IEnumerable<T> actual, IEnumerable<T> expected, IEqualityComparer<T> equality_comparer)
         {
             actual.Should().OnlyContain(x => expected.Contains(x, equality_comparer));
+            expected.Should().OnlyContain(x => actual.Contains(x, equality_comparer));
         }
 
         public static bool OnlyContains<T>(this IEnumerable<T> actual, IEnumerable<T> expected)

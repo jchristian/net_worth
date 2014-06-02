@@ -1,0 +1,23 @@
+﻿@model data.models.write.Security
+@{
+    ViewBag.Title = "Edit Security";
+}
+
+<h2>@Model.Description</h2>
+
+<div>
+    <h4>Student</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>@Html.DisplayName("Name")</dt>
+        <dd>@Html.DisplayFor(x => x.Description)</dd>
+
+        <dt>@Html.DisplayName("Ticker")</dt>
+        <dd>@Html.DisplayFor(x => x.Ticker)</dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Delete", "Delete", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
