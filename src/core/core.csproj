@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="commands\AssociateTransactionsWithMissingSecuritiesCommand.cs" />
+    <Compile Include="commands\AssociateTransactionsWithMissingTransactionTypesCommand.cs" />
     <Compile Include="extensions\DynamicExtensions.cs" />
     <Compile Include="extensions\ObjectExtensions.cs" />
     <Compile Include="extensions\StringExtensions.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="services\AccountService.cs" />
     <Compile Include="services\SecurityService.cs" />
     <Compile Include="services\TransactionTypeService.cs" />
+    <Compile Include="TransactionTypeAssociator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
