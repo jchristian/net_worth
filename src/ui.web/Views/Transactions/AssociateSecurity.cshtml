@@ -1,0 +1,41 @@
+﻿@model ui.web.Models.Transactions.AssociateSecurityModel
+@{
+    ViewBag.Title = "Associate Security";
+}
+
+<h2>What security is this?</h2>
+
+<div>@Html.Partial("Detail", Model.Transaction)</div>
+
+<div>
+    @using (Html.BeginForm("AssociateSecurity", "Transactions"))
+          {
+              @Html.AntiForgeryToken()
+              @Html.HiddenFor(model => model.TransactionId)
+
+              <table>
+                  <thead>
+                      <th>Ticker</th>
+                      <th>Description</th>
+                  </thead>
+                  @foreach (var security in Model.Securities)
+                  {
+                      <tr>
+                          <td>@Html.RadioButtonFor(m => m.SelectedSecurityId, security.Id)</td>
+                          <td>@security.Ticker</td>
+                          <td>@security.Description</td>
+                      </tr>
+                  }
+              </table>
+
+              <div class="form-group">
+                  <div class="col-md-offset-2 col-md-10">
+                      <input type="submit" value="Associate" class="btn btn-default" />
+                  </div>
+              </div>
+          }
+    <hr />
+    <div>
+        @Html.ActionLink("Create Security", "Create", "Securities")
+    </div>
+</div>

@@ -33,7 +33,7 @@
                     }
                     else
                     {
-                        @Html.ActionLink("Not Found", "AddSecurityDescriptor", "Transactions", new { id = transaction.Id }, null)
+                        @Html.ActionLink("Not Found", "AssociateSecurity", "Transactions", new { id = transaction.Id }, null)
                     }</td>
                 <td>@if (transaction.TransactionType != TransactionType.Missing)
                     {
@@ -41,7 +41,7 @@
                     }
                     else
                     {
-                        @Html.ActionLink("Not Found", "AddTransactionTypeDescriptor", "Transactions", new { id = transaction.Id }, null)
+                        @Html.ActionLink("Not Found", "AssociateTransactionType", "Transactions", new { id = transaction.Id }, null)
                     }</td>
                 <td>@transaction.Shares</td>
                 <td>@transaction.SharePrice</td>

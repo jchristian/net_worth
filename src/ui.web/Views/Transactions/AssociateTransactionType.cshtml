@@ -1,0 +1,27 @@
+﻿@model ui.web.Models.Transactions.AssociateTransactionTypeModel
+@{
+    ViewBag.Title = "Associate Transaction Type";
+}
+
+<h2>What transaction type is this?</h2>
+
+<div>@Html.Partial("Detail", Model.Transaction)</div>
+
+@using (Html.BeginForm("AssociateTransactionType", "Transactions"))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.TransactionId)
+    
+    <ul>
+        @foreach (var transactionType in Model.TransactionTypes)
+        {
+            <li>@Html.RadioButtonFor(m => m.SelectedTransactionType, transactionType) @transactionType</li>
+        }
+    </ul>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Associate" class="btn btn-default" />
+        </div>
+    </div>
+}

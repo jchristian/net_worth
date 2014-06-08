@@ -215,13 +215,13 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Transactions\List.cshtml" />
-    <Content Include="Views\Transactions\AddSecurityDescriptor.cshtml" />
+    <Content Include="Views\Transactions\AssociateSecurity.cshtml" />
     <Content Include="Views\Transactions\Detail.cshtml" />
     <Content Include="Views\Securities\Create.cshtml" />
     <Content Include="Views\Securities\Edit.cshtml" />
     <Content Include="Views\Securities\Detail.cshtml" />
     <Content Include="Views\Securities\List.cshtml" />
-    <Content Include="Views\Transactions\AddTransactionTypeDescriptor.cshtml" />
+    <Content Include="Views\Transactions\AssociateTransactionType.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

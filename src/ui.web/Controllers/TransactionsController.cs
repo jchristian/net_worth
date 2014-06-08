@@ -21,7 +21,7 @@ namespace ui.web.Controllers
 
         public TransactionsController(VanguardTransactionImporter file_importer,
                                       SecurityDescriptionAssociator security_description_associator,
-            TransactionTypeAssociator transaction_type_associator,
+                                      TransactionTypeAssociator transaction_type_associator,
                                       DataContext context)
         {
             this.file_importer = file_importer;
@@ -58,7 +58,7 @@ namespace ui.web.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult AddSecurityDescriptor(int? id)
+        public ActionResult AssociateSecurity(int? id)
         {
             if(id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -68,34 +68,44 @@ namespace ui.web.Controllers
             if (brokerage_transaction == null)
                 return new HttpNotFoundResult();
 
-            return View(new AssociateSecurityModel { Transaction = brokerage_transaction, Securities = context.Securities.ToList() });
+            return View(new AssociateSecurityModel {
+                TransactionId = brokerage_transaction.Id,
+                Transaction = brokerage_transaction,
+                Securities = context.Securities.ToList() });
         }
 
-        [Route("Transactions/AssociateSecurity/{transaction_id}/{security_id}")]
-        public ActionResult AssociateSecurity(int transaction_id, int security_id)
+        [HttpPost]
+        public ActionResult AssociateSecurity([Bind(Include = "TransactionId, SelectedSecurityId")] AssociateSecurityModel model)
         {
-            security_description_associator.Associate(transaction_id, security_id);
+            if(model.SelectedSecurityId == null)
+                return RedirectToAction("Index");
+
+            security_description_associator.Associate(model.TransactionId, model.SelectedSecurityId.Value);
 
             return RedirectToAction("Index");
         }
 
-        public ActionResult AddTransactionTypeDescriptor(int? id)
+        public ActionResult AssociateTransactionType(int? id)
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
             var brokerage_transaction = context.BrokerageTransactions.Find(id);
-
             if (brokerage_transaction == null)
                 return new HttpNotFoundResult();
 
-            return View(new AssociateTransactionTypeModel { Transaction = brokerage_transaction, TransactionTypes = Enum.GetValues(typeof(TransactionType)).OfType<TransactionType>().ToList() });
+            return View(new AssociateTransactionTypeModel
+                        {
+                            TransactionId = brokerage_transaction.Id,
+                            Transaction = brokerage_transaction,
+                            TransactionTypes = Enum.GetValues(typeof(TransactionType)).OfType<TransactionType>().ToList()
+                        });
         }
 
-        [Route("Transactions/AssociateTransactionType/{transaction_id}/{transaction_type}")]
-        public ActionResult AssociateTransactionType(int transaction_id, TransactionType transaction_type)
+        [HttpPost]
+        public ActionResult AssociateTransactionType([Bind(Include = "TransactionId, SelectedTransactionType")] AssociateTransactionTypeModel model)
         {
-            transaction_type_associator.Associate(transaction_id, transaction_type);
+            transaction_type_associator.Associate(model.TransactionId, model.SelectedTransactionType);
 
             return RedirectToAction("Index");
         }
