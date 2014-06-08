@@ -5,7 +5,6 @@ using core.services;
 using data.models.write;
 using developwithpassion.specifications.extensions;
 using developwithpassion.specifications.nsubstitue;
-//using ExpectedObjects;
 using ExpectedObjects;
 using Machine.Specifications;
 
@@ -20,7 +19,7 @@ namespace core.tests.importers.parsers.mappers
         {
             Establish c = () =>
             {
-                prime_money_market_security = new Security();
+                prime_money_market_security = new Security { Id = 1 };
                 account = new Account();
 
                 var security_mapper = depends.on<SecurityService>();
@@ -39,7 +38,7 @@ namespace core.tests.importers.parsers.mappers
                 row.GrossAmount = "2000";
                 row.NetAmount = "1999";
 
-                security_mapper.setup(x => x.Find("Prime Money Mkt Fund")).Return(prime_money_market_security);
+                security_mapper.setup(x => x.Find("Prime Money Mkt Fund")).Return(prime_money_market_security.Id);
                 account_mapper.setup(x => x.Find("12345")).Return(account);
                 transaction_type_service.setup(x => x.Find("Buy")).Return(TransactionType.Buy);
             };

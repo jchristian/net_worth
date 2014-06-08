@@ -28,7 +28,7 @@ namespace core.importers.parsers.mappers
                        ProcessDate = DateTime.Parse(parsed_row.ProcessDate),
                        TransactionType = transaction_type_service.Find(parsed_row.TransactionType),
                        TransactionDescription = parsed_row.TransactionDescription,
-                       SecurityId = security_service.Find((string)parsed_row.InvestmentName).IfNotNull(x => x.Id),
+                       SecurityId = security_service.Find((string)parsed_row.InvestmentName),
                        SecurityDescription = parsed_row.InvestmentName,
                        SharePrice = Decimal.Round(Decimal.Parse(parsed_row.SharePrice), 6),
                        Shares = Decimal.Round(Decimal.Parse(parsed_row.Shares), 6),

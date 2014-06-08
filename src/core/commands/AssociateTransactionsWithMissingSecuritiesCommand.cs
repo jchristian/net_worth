@@ -1,6 +1,5 @@
 using System.Linq;
 using data.models.contexts;
-using data.models.write;
 
 namespace core.commands
 {
@@ -14,13 +13,14 @@ namespace core.commands
             this.context = context;
         }
 
-        public virtual void Execute(Security security)
+        public virtual void Execute(int security_id)
         {
+            var descriptions = context.SecurityDescriptions.Where(x => x.SecurityId == security_id).ToList();
             foreach (var transaction in context.BrokerageTransactions)
             {
-                if (security.SecurityDescriptions.Any(x => x.Description.ToLowerInvariant() == transaction.SecurityDescription.ToLowerInvariant())
+                if (descriptions.Any(x => x.Description.ToLowerInvariant() == transaction.SecurityDescription.ToLowerInvariant())
                     && transaction.SecurityId == null)
-                    transaction.SecurityId = security.Id;
+                    transaction.SecurityId = security_id;
             }
 
             context.SaveChanges();

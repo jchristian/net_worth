@@ -1,30 +1,31 @@
-using System.Runtime.Remoting.Contexts;
 using core.commands;
-using core.queries;
+using data.models.contexts;
 using data.models.write;
 
 namespace core
 {
     public class SecurityDescriptionAssociator
     {
-        Repository repository;
+        DataContext context;
         AssociateTransactionsWithMissingSecuritiesCommand command;
 
-        public SecurityDescriptionAssociator(Repository repository, AssociateTransactionsWithMissingSecuritiesCommand command)
+        public SecurityDescriptionAssociator(DataContext context, AssociateTransactionsWithMissingSecuritiesCommand command)
         {
-            this.repository = repository;
+            this.context = context;
             this.command = command;
         }
 
         public virtual void Associate(int transaction_id, int security_id)
         {
-            var transaction = repository.GetTransaction(transaction_id);
-            var security = repository.GetSecurity(security_id);
+            var transaction = context.BrokerageTransactions.Find(transaction_id);
+            if (transaction == null)
+                return;
 
-            security.SecurityDescriptions.Add(new SecurityDescription { Security = security, Description = transaction.SecurityDescription });
-            transaction.SecurityId = security.Id;
+            transaction.SecurityId = security_id;
+            context.SecurityDescriptions.Add(new SecurityDescription { SecurityId = security_id, Description = transaction.SecurityDescription });
+            context.SaveChanges();
 
-            command.Execute(security);
+            command.Execute(security_id);
         }
     }
 }

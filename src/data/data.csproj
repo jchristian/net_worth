@@ -52,9 +52,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="helpers\SeedData.cs" />
-    <Compile Include="Migrations\201405261937064_initial_create.cs" />
-    <Compile Include="Migrations\201405261937064_initial_create.Designer.cs">
-      <DependentUpon>201405261937064_initial_create.cs</DependentUpon>
+    <Compile Include="Migrations\201406081730129_initial_create.cs" />
+    <Compile Include="Migrations\201406081730129_initial_create.Designer.cs">
+      <DependentUpon>201406081730129_initial_create.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="models\contexts\DataContext.cs" />
@@ -76,8 +76,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201405261937064_initial_create.resx">
-      <DependentUpon>201405261937064_initial_create.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201406081730129_initial_create.resx">
+      <DependentUpon>201406081730129_initial_create.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

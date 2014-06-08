@@ -1,5 +1,6 @@
 namespace data.Migrations
 {
+    using System;
     using System.Data.Entity.Migrations;
     
     public partial class initial_create : DbMigration
@@ -53,6 +54,18 @@ namespace data.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
+                "dbo.SecurityDescriptions",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        SecurityId = c.Int(nullable: false),
+                        Description = c.String(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Securities", t => t.SecurityId, cascadeDelete: true)
+                .Index(t => t.SecurityId);
+            
+            CreateTable(
                 "dbo.FinancialOverviews",
                 c => new
                     {
@@ -69,18 +82,6 @@ namespace data.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "dbo.SecurityDescriptions",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Description = c.String(),
-                        Security_Id = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Securities", t => t.Security_Id, cascadeDelete: true)
-                .Index(t => t.Security_Id);
-            
-            CreateTable(
                 "dbo.TransactionDescriptions",
                 c => new
                     {
@@ -94,15 +95,15 @@ namespace data.Migrations
         
         public override void Down()
         {
-            DropForeignKey("dbo.SecurityDescriptions", "Security_Id", "dbo.Securities");
+            DropForeignKey("dbo.SecurityDescriptions", "SecurityId", "dbo.Securities");
             DropForeignKey("dbo.BrokerageTransactions", "SecurityId", "dbo.Securities");
             DropForeignKey("dbo.BrokerageTransactions", "AccountId", "dbo.Accounts");
-            DropIndex("dbo.SecurityDescriptions", new[] { "Security_Id" });
+            DropIndex("dbo.SecurityDescriptions", new[] { "SecurityId" });
             DropIndex("dbo.BrokerageTransactions", new[] { "SecurityId" });
             DropIndex("dbo.BrokerageTransactions", new[] { "AccountId" });
             DropTable("dbo.TransactionDescriptions");
-            DropTable("dbo.SecurityDescriptions");
             DropTable("dbo.FinancialOverviews");
+            DropTable("dbo.SecurityDescriptions");
             DropTable("dbo.Securities");
             DropTable("dbo.BrokerageTransactions");
             DropTable("dbo.Accounts");

@@ -1,5 +1,4 @@
-﻿using System.Data.SqlClient;
-using System.Linq;
+﻿using System.Linq;
 using core.extensions;
 using data.models.contexts;
 using data.models.write;
@@ -16,14 +15,13 @@ namespace core.services
             this.context = context;
         }
 
-        public virtual TransactionType Find(string descriptor)
+        public virtual TransactionType Find(string transaction_description)
         {
-            var db_sql_query = context.TransactionDescriptions.SqlQuery(@"
-                SELECT      t.*
-                FROM        TransactionDescriptions t
-                WHERE       t.Description LIKE @0", new SqlParameter("@0", descriptor.ToLowerInvariant())).ToList();
-            return (TransactionType)(db_sql_query.SingleOrDefault().IfNotNull(x => x.TransactionTypeId)
-                                     ?? (int?)TransactionType.Missing).Value;
+            var descriptions = context.TransactionDescriptions.ToList();
+
+            return (TransactionType)(descriptions.FirstOrDefault(x => x.Description.ToLowerInvariant() == transaction_description.ToLowerInvariant())
+                                                 .IfNotNull(x => x.TransactionTypeId)
+                                     ?? (int)TransactionType.Missing);
         }
     }
 }
