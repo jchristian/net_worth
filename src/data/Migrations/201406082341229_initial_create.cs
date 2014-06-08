@@ -82,12 +82,14 @@ namespace data.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "dbo.TransactionDescriptions",
+                "dbo.TransactionMatches",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        TransactionTypeId = c.Int(nullable: false),
+                        TransactionType = c.Int(nullable: false),
                         Description = c.String(),
+                        TransactionMatchType = c.Int(nullable: false),
+                        ContainsMatchString = c.String(),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -101,7 +103,7 @@ namespace data.Migrations
             DropIndex("dbo.SecurityDescriptions", new[] { "SecurityId" });
             DropIndex("dbo.BrokerageTransactions", new[] { "SecurityId" });
             DropIndex("dbo.BrokerageTransactions", new[] { "AccountId" });
-            DropTable("dbo.TransactionDescriptions");
+            DropTable("dbo.TransactionMatches");
             DropTable("dbo.FinancialOverviews");
             DropTable("dbo.SecurityDescriptions");
             DropTable("dbo.Securities");

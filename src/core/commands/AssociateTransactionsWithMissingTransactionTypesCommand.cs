@@ -1,4 +1,4 @@
-using System.Linq;
+using core.services;
 using data.models.contexts;
 using data.models.write;
 
@@ -6,22 +6,22 @@ namespace core.commands
 {
     public class AssociateTransactionsWithMissingTransactionTypesCommand
     {
+        TransactionTypeService service;
         DataContext context;
 
         protected AssociateTransactionsWithMissingTransactionTypesCommand() {}
-        public AssociateTransactionsWithMissingTransactionTypesCommand(DataContext context)
+        public AssociateTransactionsWithMissingTransactionTypesCommand(DataContext context, TransactionTypeService service)
         {
+            this.service = service;
             this.context = context;
         }
 
-        public virtual void Execute(TransactionType transaction_type)
+        public virtual void Execute(TransactionMatch match)
         {
-            var transaction_descriptions = context.TransactionDescriptions.Where(x => x.TransactionTypeId == (int)transaction_type).ToList();
             foreach (var transaction in context.BrokerageTransactions)
             {
-                if (transaction_descriptions.Any(x => x.Description.ToLowerInvariant() == transaction.TransactionDescription.ToLowerInvariant())
-                    && transaction.TransactionType == TransactionType.Missing)
-                    transaction.TransactionType = transaction_type;
+                if (service.Matches(transaction.TransactionDescription, match) && transaction.TransactionType == TransactionType.Missing)
+                    transaction.TransactionType = match.TransactionType;
             }
 
             context.SaveChanges();

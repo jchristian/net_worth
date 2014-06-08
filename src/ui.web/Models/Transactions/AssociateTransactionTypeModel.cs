@@ -8,6 +8,6 @@ namespace ui.web.Models.Transactions
         public int TransactionId { get; set; }
         public BrokerageTransaction Transaction { get; set; }
         public IEnumerable<TransactionType> TransactionTypes { get; set; }
-        public TransactionType SelectedTransactionType { get; set; }
+        public TransactionMatch SelectedMatch { get; set; }
     }
 }

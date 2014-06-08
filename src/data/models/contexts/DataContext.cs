@@ -11,7 +11,7 @@ namespace data.models.contexts
         public virtual DbSet<BrokerageTransaction> BrokerageTransactions { get; set; }
         public virtual DbSet<Security> Securities { get; set; }
         public virtual DbSet<SecurityDescription> SecurityDescriptions { get; set; }
-        public virtual DbSet<TransactionDescription> TransactionDescriptions { get; set; }
+        public virtual DbSet<TransactionMatch> TransactionMatches { get; set; }
 
         //Read
         public virtual DbSet<FinancialOverview> FinancialOverviews { get; set; }
@@ -28,6 +28,7 @@ namespace data.models.contexts
                 .HasMany(x => x.BrokerageTransactions)
                 .WithOptional(x => x.Security)
                 .WillCascadeOnDelete(false);
+
         }
     }
 }

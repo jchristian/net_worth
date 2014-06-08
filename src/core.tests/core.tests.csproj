@@ -33,12 +33,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="developwithpassion.specifications">
-      <HintPath>..\..\packages\developwithpassion.specifications.nsubstitue.0.6.0\lib\developwithpassion.specifications.dll</HintPath>
-    </Reference>
-    <Reference Include="developwithpassion.specifications.nsubstitue">
-      <HintPath>..\..\packages\developwithpassion.specifications.nsubstitue.0.6.0\lib\developwithpassion.specifications.nsubstitue.dll</HintPath>
-    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
@@ -54,28 +48,14 @@
     <Reference Include="FluentAssertions">
       <HintPath>..\..\packages\FluentAssertions.2.2.0.0\lib\net45\FluentAssertions.dll</HintPath>
     </Reference>
-    <Reference Include="Machine.Fakes, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Machine.Fakes.2.1.0\lib\net40\Machine.Fakes.dll</HintPath>
-    </Reference>
-    <Reference Include="Machine.Fakes.Adapters.NSubstitute, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Machine.Fakes.NSubstitute.2.1.0\lib\net40\Machine.Fakes.Adapters.NSubstitute.dll</HintPath>
-    </Reference>
-    <Reference Include="Machine.Specifications, Version=0.7.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Machine.Specifications.0.7.0\lib\net45\Machine.Specifications.dll</HintPath>
-    </Reference>
-    <Reference Include="Machine.Specifications.Clr4, Version=0.7.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Machine.Specifications.0.7.0\lib\net45\Machine.Specifications.Clr4.dll</HintPath>
+    <Reference Include="Moq">
+      <HintPath>..\..\packages\Moq.4.2.1402.2112\lib\net40\Moq.dll</HintPath>
     </Reference>
     <Reference Include="MoreLinq">
       <HintPath>..\..\packages\morelinq.1.0.16006\lib\net35\MoreLinq.dll</HintPath>
     </Reference>
-    <Reference Include="NSubstitute, Version=1.7.2.0, Culture=neutral, PublicKeyToken=92dd2e9066daa5ca, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\NSubstitute.1.7.2.0\lib\NET45\NSubstitute.dll</HintPath>
+    <Reference Include="Ploeh.AutoFixture">
+      <HintPath>..\..\packages\AutoFixture.3.18.10\lib\net40\Ploeh.AutoFixture.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -85,18 +65,14 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="xunit">
+      <HintPath>..\..\packages\xunit.1.9.2\lib\net20\xunit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="helpers\CollectionAssertionExtensions.cs" />
     <Compile Include="helpers\DummyDate.cs" />
     <Compile Include="helpers\PublicPropertyEqualityComparer.cs" />
-    <Compile Include="importers\FileTransactionImporterSpecs.cs" />
-    <Compile Include="importers\parsers\CSVFileParserSpecs.cs" />
-    <Compile Include="importers\parsers\mappers\ParsedVanguardCVSFileMapperSpecs.cs" />
-    <Compile Include="importers\parsers\mappers\ParsedVanguardCVSRowMapperSpecs.cs" />
-    <Compile Include="importers\parsers\readers\VanguardTransactionFileReaderFactorySpecs.cs" />
-    <Compile Include="importers\parsers\VanguardTransactionParserSpecs.cs" />
-    <Compile Include="importers\persisters\DuplicateBrokerageTransactionFilterSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -112,14 +88,6 @@
       <Project>{7933e456-4848-4d95-8dd4-7b3a74c02c9b}</Project>
       <Name>data</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="importers\parsers\readers\vanguard_transaction_file_reader_factory_specs_test_file %28with transactions%29.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="importers\parsers\readers\vanguard_transaction_file_reader_factory_specs_test_file %28without transactions%29.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

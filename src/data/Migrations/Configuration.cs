@@ -16,10 +16,10 @@ namespace data.Migrations
 
         protected override void Seed(DataContext context)
         {
-            context.TransactionDescriptions.AddOrUpdate(x => x.TransactionTypeId,
+            context.TransactionMatches.AddOrUpdate(x => x.TransactionType,
                 Enum.GetValues(typeof(TransactionType))
                 .Cast<TransactionType>()
-                .Select(x => new TransactionDescription { TransactionTypeId = (int)x, Description = x.ToString() }).ToArray());
+                .Select(x => new TransactionMatch { TransactionType = x, Description = x.ToString(), TransactionMatchType = TransactionMatchType.ExactMatch }).ToArray());
 
             context.SaveChanges();
         }

@@ -1,9 +1,10 @@
-﻿@model ui.web.Models.Transactions.AssociateTransactionTypeModel
+﻿@using data.models.write
+@model ui.web.Models.Transactions.AssociateTransactionTypeModel
 @{
     ViewBag.Title = "Associate Transaction Type";
 }
 
-<h2>What transaction type is this?</h2>
+<h2>What transaction type matches the transaction description?</h2>
 
 <div>@Html.Partial("Detail", Model.Transaction)</div>
 
@@ -11,13 +12,25 @@
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(model => model.TransactionId)
-    
+    @Html.HiddenFor(model => model.SelectedMatch.Description)
+
+    <h3>Transaction Types</h3>
     <ul>
         @foreach (var transactionType in Model.TransactionTypes)
         {
-            <li>@Html.RadioButtonFor(m => m.SelectedTransactionType, transactionType) @transactionType</li>
+            <li>@Html.RadioButtonFor(m => m.SelectedMatch.TransactionType, transactionType) @transactionType</li>
         }
     </ul>
+
+    <h3>How does the description match?</h3>
+    <div>
+        <ul>
+            <li>@Html.RadioButtonFor(m => m.SelectedMatch.TransactionMatchType, TransactionMatchType.ExactMatch, new { @checked = true }) Exact match</li>
+            <li>
+                @Html.RadioButtonFor(m => m.SelectedMatch.TransactionMatchType, TransactionMatchType.ContainsMatch) Contains @Html.TextBoxFor(model => model.SelectedMatch.ContainsMatchString)
+            </li>
+        </ul>
+    </div>
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">

@@ -15,13 +15,16 @@ namespace core.services
             this.context = context;
         }
 
-        public virtual TransactionType Find(string transaction_description)
+        public virtual TransactionType Matches(string transaction_description)
         {
-            var descriptions = context.TransactionDescriptions.ToList();
+            var matches = context.TransactionMatches.ToList();
 
-            return (TransactionType)(descriptions.FirstOrDefault(x => x.Description.ToLowerInvariant() == transaction_description.ToLowerInvariant())
-                                                 .IfNotNull(x => x.TransactionTypeId)
-                                     ?? (int)TransactionType.Missing);
+            return matches.FirstOrDefault(x => Matches(transaction_description, x)).IfNotNull(x => x.TransactionType) ?? TransactionType.Missing;
+        }
+
+        public virtual bool Matches(string transaction_description, TransactionMatch match)
+        {
+            return match.Description.ToLowerInvariant() == transaction_description.ToLowerInvariant();
         }
     }
 }

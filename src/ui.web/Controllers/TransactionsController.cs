@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using core;
+using core.commands;
 using core.importers;
 using data.models.contexts;
 using data.models.write;
@@ -15,18 +16,18 @@ namespace ui.web.Controllers
     public class TransactionsController : Controller
     {
         VanguardTransactionImporter file_importer;
-        SecurityDescriptionAssociator security_description_associator;
-        TransactionTypeAssociator transaction_type_associator;
+        AssociateSecurityCommand associate_security_command;
+        AssociateTransactionTypeCommand associate_transaction_type_command;
         DataContext context;
 
         public TransactionsController(VanguardTransactionImporter file_importer,
-                                      SecurityDescriptionAssociator security_description_associator,
-                                      TransactionTypeAssociator transaction_type_associator,
+                                      AssociateSecurityCommand associate_security_command,
+                                      AssociateTransactionTypeCommand associate_transaction_type_command,
                                       DataContext context)
         {
             this.file_importer = file_importer;
-            this.security_description_associator = security_description_associator;
-            this.transaction_type_associator = transaction_type_associator;
+            this.associate_security_command = associate_security_command;
+            this.associate_transaction_type_command = associate_transaction_type_command;
             this.context = context;
         }
 
@@ -80,7 +81,7 @@ namespace ui.web.Controllers
             if(model.SelectedSecurityId == null)
                 return RedirectToAction("Index");
 
-            security_description_associator.Associate(model.TransactionId, model.SelectedSecurityId.Value);
+            associate_security_command.Execute(model.TransactionId, model.SelectedSecurityId.Value);
 
             return RedirectToAction("Index");
         }
@@ -98,14 +99,15 @@ namespace ui.web.Controllers
                         {
                             TransactionId = brokerage_transaction.Id,
                             Transaction = brokerage_transaction,
-                            TransactionTypes = Enum.GetValues(typeof(TransactionType)).OfType<TransactionType>().ToList()
+                            TransactionTypes = Enum.GetValues(typeof(TransactionType)).OfType<TransactionType>().ToList(),
+                            SelectedMatch = new TransactionMatch { Description = brokerage_transaction.TransactionDescription }
                         });
         }
 
         [HttpPost]
-        public ActionResult AssociateTransactionType([Bind(Include = "TransactionId, SelectedTransactionType")] AssociateTransactionTypeModel model)
+        public ActionResult AssociateTransactionType([Bind(Include = "TransactionId, SelectedMatch")] AssociateTransactionTypeModel model)
         {
-            transaction_type_associator.Associate(model.TransactionId, model.SelectedTransactionType);
+            associate_transaction_type_command.Execute(model.TransactionId, model.SelectedMatch);
 
             return RedirectToAction("Index");
         }
