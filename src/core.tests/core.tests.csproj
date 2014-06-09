@@ -74,6 +74,7 @@
     <Compile Include="helpers\DummyDate.cs" />
     <Compile Include="helpers\PublicPropertyEqualityComparer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="services\TransactionTypeServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
