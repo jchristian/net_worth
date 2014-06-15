@@ -16,14 +16,14 @@
               <table>
                   <thead>
                       <th>Ticker</th>
-                      <th>Description</th>
+                      <th>Name</th>
                   </thead>
                   @foreach (var security in Model.Securities)
                   {
                       <tr>
                           <td>@Html.RadioButtonFor(m => m.SelectedSecurityId, security.Id)</td>
                           <td>@security.Ticker</td>
-                          <td>@security.Description</td>
+                          <td>@security.Name</td>
                       </tr>
                   }
               </table>

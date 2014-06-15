@@ -59,10 +59,13 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="models\contexts\DataContext.cs" />
     <Compile Include="models\NotifyPropertyChangedBase.cs" />
-    <Compile Include="models\read\FinancialOverview.cs" />
+    <Compile Include="models\read\CostBasisSummary.cs" />
+    <Compile Include="models\read\Lot.cs" />
+    <Compile Include="models\read\SecurityLot.cs" />
     <Compile Include="models\write\Account.cs" />
     <Compile Include="models\write\AccountType.cs" />
     <Compile Include="models\write\BrokerageTransaction.cs" />
+    <Compile Include="models\write\SecurityPrice.cs" />
     <Compile Include="models\write\TransactionMatchType.cs" />
     <Compile Include="models\write\Security.cs" />
     <Compile Include="models\write\SecurityDescription.cs" />

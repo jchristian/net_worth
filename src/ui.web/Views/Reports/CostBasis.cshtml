@@ -1,0 +1,52 @@
+﻿@using Microsoft.Ajax.Utilities
+@model data.models.read.CostBasisSummary
+@{
+    ViewBag.Title = "Cost Basis Summary";
+}
+<div>
+    <h2>Cost Basis Summary</h2>
+    <table>
+        <thead>
+            <tr>
+                <th rowspan="2" colspan="3" />
+                <th rowspan="2">Quantity</th>
+                <th rowspan="2">Cost Per Share</th>
+                <th rowspan="2">Total Cost</th>
+                <th rowspan="2">Current Market Value</th>
+                <th colspan="2" style="text-align:center">Capital Gains</th>
+                <th rowspan="2">Total Gain/Loss</th>
+            </tr>
+            <tr>
+                <th>Short-Term</th>
+                <th>Long-Term</th>
+            </tr>
+        </thead>
+        @foreach (var security_lot in Model.SecurityLots)
+        {
+            <tr>
+                <td>@Html.ActionLink(security_lot.SecurityTicker, "Detail", "Securities", new { Id = security_lot.SecurityId }, null)</td>
+                <td colspan="2">@security_lot.SecurityName</td>
+                <td>@security_lot.Quantity</td>
+                <td>-</td>
+                <td>@security_lot.TotalCost</td>
+                <td>@security_lot.CurrentMarketValue</td>
+                <td>@security_lot.ShortTermCapitalGain</td>
+                <td>@security_lot.LongTermCapitalGain</td>
+                <td>@security_lot.TotalGainLoss</td>
+            </tr>
+            foreach (var lot in security_lot.Lots)
+            {
+                <tr>
+                    <td colspan="3" style="text-align:right">@String.Format("{0:MM-dd-yyyy}", lot.AquiredDate)</td>
+                    <td>@security_lot.Quantity</td>
+                    <td>-</td>
+                    <td>@security_lot.TotalCost</td>
+                    <td>@security_lot.CurrentMarketValue</td>
+                    <td>@security_lot.ShortTermCapitalGain</td>
+                    <td>@security_lot.LongTermCapitalGain</td>
+                    <td>@security_lot.TotalGainLoss</td>
+                </tr>
+            }
+        }
+    </table>
+</div>

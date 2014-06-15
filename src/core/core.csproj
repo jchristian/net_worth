@@ -81,6 +81,7 @@
     <Compile Include="services\AccountService.cs" />
     <Compile Include="services\SecurityService.cs" />
     <Compile Include="services\TransactionTypeService.cs" />
+    <Compile Include="work\CostBasisSummaryCalculator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -172,6 +172,7 @@
     <Compile Include="DependencyResolution\DataRegistry.cs" />
     <Compile Include="DependencyResolution\DependencyBootstrapper.cs" />
     <Compile Include="DependencyResolution\StructureMapControllerFactory.cs" />
+    <Compile Include="extensions\DictionaryExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -222,6 +223,7 @@
     <Content Include="Views\Securities\Detail.cshtml" />
     <Content Include="Views\Securities\List.cshtml" />
     <Content Include="Views\Transactions\AssociateTransactionType.cshtml" />
+    <Content Include="Views\Reports\CostBasis.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -14,7 +14,7 @@ namespace data.models.contexts
         public virtual DbSet<TransactionMatch> TransactionMatches { get; set; }
 
         //Read
-        public virtual DbSet<FinancialOverview> FinancialOverviews { get; set; }
+        public virtual DbSet<CostBasisSummary> CostBasisSummary { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
