@@ -12,7 +12,8 @@ namespace core.work
         public CostBasisSummary Calculate(IEnumerable<BrokerageTransaction> transactions, IEnumerable<SecurityPrice> current_prices)
         {
             var security_lots = transactions.GroupBy(x => x.Security)
-                                            .Select(x => CalculateSecurityLot(x, current_prices.FirstOrDefault(y => y.Security == x.Key)));
+                                            .Select(x => CalculateSecurityLot(x, current_prices.FirstOrDefault(y => y.Security == x.Key)))
+                                            .ToList();
 
             return new CostBasisSummary
                    {

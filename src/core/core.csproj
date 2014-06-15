@@ -55,12 +55,16 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="YSQ.core">
+      <HintPath>..\..\packages\YahooStockQuotes.1.0.1\lib\net40\YSQ.core.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="commands\AssociateSecurityCommand.cs" />
     <Compile Include="commands\AssociateTransactionsWithMissingSecuritiesCommand.cs" />
     <Compile Include="commands\AssociateTransactionsWithMissingTransactionTypesCommand.cs" />
     <Compile Include="commands\AssociateTransactionTypeCommand.cs" />
+    <Compile Include="commands\read\UpdateCostBasisSummaryCommand.cs" />
     <Compile Include="extensions\DynamicExtensions.cs" />
     <Compile Include="extensions\ObjectExtensions.cs" />
     <Compile Include="extensions\StringExtensions.cs" />
