@@ -33,19 +33,20 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="LumenWorks.Framework.IO">
       <HintPath>..\..\packages\LumenWorks.Framework.IO.3.8.0\lib\net20\LumenWorks.Framework.IO.dll</HintPath>
     </Reference>
     <Reference Include="MoreLinq">
-      <HintPath>..\..\packages\morelinq.1.0.16006\lib\net35\MoreLinq.dll</HintPath>
+      <HintPath>..\..\packages\morelinq.1.1.0\lib\net35\MoreLinq.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -64,8 +65,11 @@
     <Compile Include="commands\AssociateTransactionsWithMissingSecuritiesCommand.cs" />
     <Compile Include="commands\AssociateTransactionsWithMissingTransactionTypesCommand.cs" />
     <Compile Include="commands\AssociateTransactionTypeCommand.cs" />
-    <Compile Include="commands\read\UpdateCostBasisSummaryCommand.cs" />
+    <Compile Include="commands\AutoAssignTradesCommand.cs" />
+    <Compile Include="commands\CreateLotsCommand.cs" />
+    <Compile Include="exceptions\SoldTooManySharesException.cs" />
     <Compile Include="extensions\DynamicExtensions.cs" />
+    <Compile Include="extensions\EnumerableExtensions.cs" />
     <Compile Include="extensions\ObjectExtensions.cs" />
     <Compile Include="extensions\StringExtensions.cs" />
     <Compile Include="importers\FileTransactionImporter.cs" />
@@ -85,7 +89,7 @@
     <Compile Include="services\AccountService.cs" />
     <Compile Include="services\SecurityService.cs" />
     <Compile Include="services\TransactionTypeService.cs" />
-    <Compile Include="work\CostBasisSummaryCalculator.cs" />
+    <Compile Include="work\LIFOTradeCalculator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -97,6 +101,7 @@
       <Name>data</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

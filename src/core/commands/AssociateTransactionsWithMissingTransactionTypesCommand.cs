@@ -23,7 +23,6 @@ namespace core.commands
                 if (service.Matches(transaction.TransactionDescription, match) && transaction.TransactionType == TransactionType.Missing)
                     transaction.TransactionType = match.TransactionType;
             }
-
             context.SaveChanges();
         }
     }

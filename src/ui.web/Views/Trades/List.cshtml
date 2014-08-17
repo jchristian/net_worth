@@ -1,0 +1,28 @@
+﻿@using data.models.write
+@using Microsoft.Ajax.Utilities
+@model IEnumerable<data.models.write.Lot>
+@{
+    ViewBag.Title = "Lots List";
+}
+
+<div>
+    <table>
+        <thead>
+        <th>Trade Date</th>
+        <th>Account</th>
+        <th>Security</th>
+        <th>Shares</th>
+        <th>Amount</th>
+        </thead>
+        @foreach (var transaction in Model)
+        {
+            <tr>
+                <td>@transaction.BrokerageTransaction.TradeDate</td>
+                <td>@transaction.BrokerageTransaction.Account.IfNotNull(x => x.Number)</td>
+                <td>@(transaction.BrokerageTransaction.Security.IfNotNull(x => x.Ticker) ?? "Missing")</td>
+                <td>@transaction.RemainingShares</td>
+                <td>@transaction.RemainingAmount</td>
+            </tr>
+        }
+    </table>
+</div>

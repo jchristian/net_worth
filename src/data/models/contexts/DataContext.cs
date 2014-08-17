@@ -1,5 +1,4 @@
 ﻿using System.Data.Entity;
-using data.models.read;
 using data.models.write;
 
 namespace data.models.contexts
@@ -9,12 +8,10 @@ namespace data.models.contexts
         //Write
         public virtual DbSet<Account> Accounts { get; set; }
         public virtual DbSet<BrokerageTransaction> BrokerageTransactions { get; set; }
+        public virtual DbSet<Lot> Lots { get; set; }
         public virtual DbSet<Security> Securities { get; set; }
         public virtual DbSet<SecurityDescription> SecurityDescriptions { get; set; }
         public virtual DbSet<TransactionMatch> TransactionMatches { get; set; }
-
-        //Read
-        public virtual DbSet<CostBasisSummary> CostBasisSummary { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using core;
 using core.commands;
 using core.importers;
 using data.models.contexts;
@@ -18,16 +17,22 @@ namespace ui.web.Controllers
         VanguardTransactionImporter file_importer;
         AssociateSecurityCommand associate_security_command;
         AssociateTransactionTypeCommand associate_transaction_type_command;
+        CreateLotsCommand create_lots_command;
+        AutoAssignTradesCommand auto_assign_trades_command;
         DataContext context;
 
         public TransactionsController(VanguardTransactionImporter file_importer,
                                       AssociateSecurityCommand associate_security_command,
                                       AssociateTransactionTypeCommand associate_transaction_type_command,
+                                      CreateLotsCommand create_lots_command,
+                                      AutoAssignTradesCommand auto_assign_trades_command,
                                       DataContext context)
         {
             this.file_importer = file_importer;
             this.associate_security_command = associate_security_command;
             this.associate_transaction_type_command = associate_transaction_type_command;
+            this.create_lots_command = create_lots_command;
+            this.auto_assign_trades_command = auto_assign_trades_command;
             this.context = context;
         }
 
@@ -55,6 +60,9 @@ namespace ui.web.Controllers
                 var reader = new StreamReader(hpf.InputStream);
                 file_importer.Import(reader);
             }
+
+            create_lots_command.Execute();
+            auto_assign_trades_command.Execute();
 
             return RedirectToAction("Index");
         }

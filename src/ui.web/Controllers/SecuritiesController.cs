@@ -5,7 +5,6 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using data.models.contexts;
-using data.models.read;
 using data.models.write;
 
 namespace ui.web.Controllers
@@ -95,71 +94,6 @@ namespace ui.web.Controllers
             }
 
             return RedirectToAction("Index");
-        }
-    }
-
-    public class ReportsController : Controller
-    {
-        public ActionResult Index()
-        {
-            return RedirectToAction("CostBasis");
-        }
-
-        public ActionResult CostBasis()
-        {
-            var model = new CostBasisSummary
-                        {
-                            SecurityLots = new[]
-                                           {
-                                               new SecurityLot
-                                               {
-                                                   SecurityId = 1,
-                                                   SecurityTicker = "VTSAX",
-                                                   SecurityName = "Vanguard Total Stock Market Admiral Shares Fund",
-                                                   Quantity = 61,
-                                                   TotalCost = 18724.13m,
-                                                   CurrentMarketValueDate = DateTime.Now,
-                                                   CurrentMarketValue = 20132.45m,
-                                                   ShortTermCapitalGain = 11.13m,
-                                                   LongTermCapitalGain = 1392.76m,
-                                                   TotalGainLoss = 1403.89m,
-                                                   Lots = new[]
-                                                          {
-                                                              new Lot { AquiredDate = new DateTime(2013, 1, 3), Quantity = 11, CostPerShare = 104.60m, TotalCost = 1143.76m, CurrentMarketValue = 1200, ShortTermCapitalGain = 0, LongTermCapitalGain = 56.24m, TotalGainLoss = 56.24m, },
-                                                              new Lot { AquiredDate = new DateTime(2013, 1, 4), Quantity = 11, CostPerShare = 104.60m, TotalCost = 1143.76m, CurrentMarketValue = 1200, ShortTermCapitalGain = 0, LongTermCapitalGain = 56.24m, TotalGainLoss = 56.24m, },
-                                                              new Lot { AquiredDate = new DateTime(2013, 1, 5), Quantity = 11, CostPerShare = 104.60m, TotalCost = 1143.76m, CurrentMarketValue = 1200, ShortTermCapitalGain = 0, LongTermCapitalGain = 56.24m, TotalGainLoss = 56.24m, },
-                                                              new Lot { AquiredDate = new DateTime(2013, 6, 3), Quantity = 11, CostPerShare = 104.60m, TotalCost = 1143.76m, CurrentMarketValue = 1200, ShortTermCapitalGain = 0, LongTermCapitalGain = 56.24m, TotalGainLoss = 56.24m, },
-                                                              new Lot { AquiredDate = new DateTime(2013, 7, 13), Quantity = 11, CostPerShare = 104.60m, TotalCost = 1143.76m, CurrentMarketValue = 1200, ShortTermCapitalGain = 56.24m, LongTermCapitalGain = 0, TotalGainLoss = 56.24m, },
-                                                              new Lot { AquiredDate = new DateTime(2014, 1, 1), Quantity = 11, CostPerShare = 104.60m, TotalCost = 1143.76m, CurrentMarketValue = 1200, ShortTermCapitalGain = 56.24m, LongTermCapitalGain = 0, TotalGainLoss = 56.24m, }
-                                                          }
-                                               },
-
-                                               new SecurityLot
-                                               {
-                                                   SecurityId = 2,
-                                                   SecurityTicker = "VGSLX",
-                                                   SecurityName = "Vanguard REIT Admiral Shares Fund",
-                                                   Quantity = 23,
-                                                   TotalCost = 11926.96m,
-                                                   CurrentMarketValueDate = DateTime.Now,
-                                                   CurrentMarketValue = 12926.96m,
-                                                   ShortTermCapitalGain = -100m,
-                                                   LongTermCapitalGain = 1100m,
-                                                   TotalGainLoss = 100m,
-                                                   Lots = new[]
-                                                          {
-                                                              new Lot { AquiredDate = new DateTime(2013, 1, 3), Quantity = 11, CostPerShare = 104.60m, TotalCost = 1143.76m, CurrentMarketValue = 1200, ShortTermCapitalGain = 0, LongTermCapitalGain = 56.24m, TotalGainLoss = 56.24m, },
-                                                              new Lot { AquiredDate = new DateTime(2013, 1, 4), Quantity = 11, CostPerShare = 104.60m, TotalCost = 1143.76m, CurrentMarketValue = 1200, ShortTermCapitalGain = 0, LongTermCapitalGain = 56.24m, TotalGainLoss = 56.24m, },
-                                                              new Lot { AquiredDate = new DateTime(2013, 1, 5), Quantity = 11, CostPerShare = 104.60m, TotalCost = 1143.76m, CurrentMarketValue = 1200, ShortTermCapitalGain = 0, LongTermCapitalGain = 56.24m, TotalGainLoss = 56.24m, },
-                                                              new Lot { AquiredDate = new DateTime(2013, 6, 3), Quantity = 11, CostPerShare = 104.60m, TotalCost = 1143.76m, CurrentMarketValue = 1200, ShortTermCapitalGain = 0, LongTermCapitalGain = 56.24m, TotalGainLoss = 56.24m, },
-                                                              new Lot { AquiredDate = new DateTime(2013, 7, 13), Quantity = 11, CostPerShare = 104.60m, TotalCost = 1143.76m, CurrentMarketValue = 1200, ShortTermCapitalGain = 56.24m, LongTermCapitalGain = 0, TotalGainLoss = 56.24m, },
-                                                              new Lot { AquiredDate = new DateTime(2014, 1, 1), Quantity = 11, CostPerShare = 104.60m, TotalCost = 1143.76m, CurrentMarketValue = 1200, ShortTermCapitalGain = 56.24m, LongTermCapitalGain = 0, TotalGainLoss = 56.24m, }
-                                                          }
-                                               },
-                                           }
-                        };
-
-            return View(model);
         }
     }
 }

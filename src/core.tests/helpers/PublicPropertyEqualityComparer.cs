@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -8,7 +9,7 @@ namespace core.tests.helpers
     {
         public bool Equals(T x, T y)
         {
-            return typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance).All(property => property.GetValue(x) == property.GetValue(y));
+            return typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance).All(property => Equals(property.GetValue(x), property.GetValue(y)));
         }
 
         public int GetHashCode(T obj)
