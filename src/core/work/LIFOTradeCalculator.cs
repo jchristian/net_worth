@@ -8,110 +8,71 @@ namespace core.work
 {
     public class LIFOTradeCalculator
     {
-        public IEnumerable<Trade> Calculate(IEnumerable<BrokerageTransaction> transactions)
+        public IEnumerable<Trade> Calculate(IEnumerable<BrokerageTransaction> brokerage_transactions, IEnumerable<Lot> lots)
         {
-            var transactions_by_security = transactions.GroupBy(x => new[] { x.SecurityId, x.AccountId }).ToList();
+            var open_lots_by_security = lots.Where(x => x.IsOpen && x.BrokerageTransaction.SecurityId != null)
+                                            .GroupBy(x => new { x.BrokerageTransaction.SecurityId, x.BrokerageTransaction.AccountId }).ToList();
+            var sell_transactions_by_security = brokerage_transactions.Where(x => x.GrossAmount < 0 && x.SecurityId != null)
+                                                                      .GroupBy(x => new { x.SecurityId, x.AccountId }).ToList();
 
-            return transactions_by_security.SelectMany(CalculateTradesForSingleSecurityInAccount).ToList();
+            return sell_transactions_by_security
+                .Join(open_lots_by_security, x => x.Key, x => x.Key, (sell_transactions, open_lots) => new { sell_transactions, open_lots })
+                .SelectMany(x => CalculateTradesForSingleSecurityInAccount(x.sell_transactions, x.open_lots)).ToList();
         }
 
         //Assume we aren't shorting positions
-        public IEnumerable<Trade> CalculateTradesForSingleSecurityInAccount(IEnumerable<BrokerageTransaction> transactions)
+        public IEnumerable<Trade> CalculateTradesForSingleSecurityInAccount(IEnumerable<BrokerageTransaction> sell_transactions, IEnumerable<Lot> lots)
         {
-            var ordered_transactions = transactions.OrderBy(x => x.TradeDate).ToList();
+            var ordered_transactions = sell_transactions.OrderBy(x => x.TradeDate).ToList();
+            var ordered_lots = lots.OrderBy(x => x.BrokerageTransaction.TradeDate).ToList();
 
-            var open_positions = new List<OpenPosition>();
             var trades = new List<Trade>();
 
             foreach (var transaction in ordered_transactions)
             {
-                if (transaction.GrossAmount > 0)
+                var quantity = -transaction.Shares;
+
+                while (quantity > 0 && ordered_lots.Any())
                 {
-                    OpenPosition(transaction, open_positions);
-                }
-                else if (transaction.GrossAmount < 0)
-                {
-                    trades.AddRange(ClosePositions(transaction, open_positions));
-                }
-            }
-
-            return trades;
-        }
-
-        void OpenPosition(BrokerageTransaction transaction, List<OpenPosition> open_positions)
-        {
-            open_positions.Add(new OpenPosition
-                               {
-                                   AquireDate = transaction.TradeDate,
-                                   AssociatedTransactionId = transaction.Id,
-                                   AccountId = transaction.AccountId,
-                                   SecurityId = transaction.SecurityId,
-                                   Shares = transaction.Shares,
-                                   SharePrice = transaction.SharePrice,
-                                   TotalCost = transaction.GrossAmount
-                               });
-        }
-
-        IEnumerable<Trade> ClosePositions(BrokerageTransaction transaction, List<OpenPosition> open_positions)
-        {
-            var quantity = transaction.Shares;
-
-            var trades = new List<Trade>();
-            while (quantity > 0 && open_positions.Any())
-            {
-                var position = open_positions.First();
-
-                if (quantity >= position.Shares)
-                {
-                    open_positions.Remove(position);
-                    quantity -= position.Shares;
-                    trades.Add(new Trade
-                               {
-                                   AquireDate = position.AquireDate,
-                                   ClosingDate = transaction.TradeDate,
-                                   ClosingTransactionId = transaction.Id,
-                                   PositionId = position.AssociatedTransactionId,
-                                   Quantity = position.Shares,
-                                   SellPrice = transaction.SharePrice,
-                                   ProfileAndLoss = (position.Shares * transaction.SharePrice) - (position.Shares * position.SharePrice)
-                               });
-                }
-                else
-                {
-                    position.Shares -= quantity;
-                    trades.Add(new Trade
+                    var position = ordered_lots.First();
+                    if (quantity >= position.RemainingShares)
                     {
-                        AquireDate = position.AquireDate,
-                        ClosingDate = transaction.TradeDate,
-                        ClosingTransactionId = transaction.Id,
-                        PositionId = position.AssociatedTransactionId,
-                        Quantity = quantity,
-                        SellPrice = transaction.SharePrice,
-                        ProfileAndLoss = (quantity * transaction.SharePrice) - (quantity * position.SharePrice)
-                    });
-                    quantity = 0;
+                        ordered_lots.Remove(position);
+                        quantity -= position.RemainingShares;
+                        trades.Add(new Trade
+                        {
+                            AquireDate = position.BrokerageTransaction.TradeDate,
+                            ClosingDate = transaction.TradeDate,
+                            ClosingTransactionId = transaction.Id,
+                            PositionId = position.Id,
+                            Quantity = position.RemainingShares,
+                            SellPrice = transaction.SharePrice,
+                            ProfileAndLoss = (position.RemainingShares * transaction.SharePrice) - (position.RemainingShares * position.BrokerageTransaction.SharePrice)
+                        });
+                        position.IsOpen = false;
+                    }
+                    else
+                    {
+                        position.RemainingShares -= quantity;
+                        trades.Add(new Trade
+                        {
+                            AquireDate = position.BrokerageTransaction.TradeDate,
+                            ClosingDate = transaction.TradeDate,
+                            ClosingTransactionId = transaction.Id,
+                            PositionId = position.Id,
+                            Quantity = quantity,
+                            SellPrice = transaction.SharePrice,
+                            ProfileAndLoss = (quantity * transaction.SharePrice) - (quantity * position.BrokerageTransaction.SharePrice)
+                        });
+                        quantity = 0;
+                    }
                 }
-            }
 
-            if (quantity > 0)
-                throw new SoldTooManySharesException(transaction);
+                if (quantity > 0)
+                    throw new SoldTooManySharesException(transaction);
+            }
 
             return trades;
         }
-    }
-
-    public class OpenPosition
-    {
-        public int Id { get; set; }
-        public DateTime AquireDate { get; set; }
-        public BrokerageTransaction AssociatedTransaction { get; set; }
-        public int AssociatedTransactionId { get; set; }
-        public Account Account { get; set; }
-        public int AccountId { get; set; }
-        public Security Security { get; set; }
-        public int? SecurityId { get; set; }
-        public decimal SharePrice { get; set; }
-        public decimal Shares { get; set; }
-        public decimal TotalCost { get; set; }
     }
 }

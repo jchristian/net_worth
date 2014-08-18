@@ -69,11 +69,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="helpers\SeedData.cs" />
-    <Compile Include="Migrations\201408171920522_initial_create.cs" />
-    <Compile Include="Migrations\201408171920522_initial_create.Designer.cs">
-      <DependentUpon>201408171920522_initial_create.cs</DependentUpon>
+    <Compile Include="Migrations\201408180134354_initial_create.cs" />
+    <Compile Include="Migrations\201408180134354_initial_create.Designer.cs">
+      <DependentUpon>201408180134354_initial_create.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Migrations\VanguardSeedData.cs" />
     <Compile Include="models\contexts\DataContext.cs" />
     <Compile Include="models\NotifyPropertyChangedBase.cs" />
     <Compile Include="models\write\Account.cs" />
@@ -99,8 +100,8 @@
     <Folder Include="models\read\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201408171920522_initial_create.resx">
-      <DependentUpon>201408171920522_initial_create.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201408180134354_initial_create.resx">
+      <DependentUpon>201408180134354_initial_create.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

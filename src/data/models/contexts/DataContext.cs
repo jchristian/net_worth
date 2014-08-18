@@ -9,6 +9,7 @@ namespace data.models.contexts
         public virtual DbSet<Account> Accounts { get; set; }
         public virtual DbSet<BrokerageTransaction> BrokerageTransactions { get; set; }
         public virtual DbSet<Lot> Lots { get; set; }
+        public virtual DbSet<Trade> Trades { get; set; }
         public virtual DbSet<Security> Securities { get; set; }
         public virtual DbSet<SecurityDescription> SecurityDescriptions { get; set; }
         public virtual DbSet<TransactionMatch> TransactionMatches { get; set; }
@@ -17,6 +18,8 @@ namespace data.models.contexts
         {
             modelBuilder.Properties<decimal>().Configure(prop => prop.HasPrecision(19, 6));
 
+            modelBuilder.Entity<Trade>().HasRequired(x => x.Position);
+            modelBuilder.Entity<Trade>().HasRequired(x => x.ClosingTransaction);
             modelBuilder.Entity<SecurityDescription>().HasRequired(x => x.Security);
             modelBuilder.Entity<BrokerageTransaction>().HasRequired(x => x.Account);
             modelBuilder.Entity<BrokerageTransaction>().HasOptional(x => x.Security);

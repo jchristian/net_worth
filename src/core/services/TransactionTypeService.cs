@@ -18,8 +18,17 @@ namespace core.services
         public virtual TransactionType Find(string transaction_description)
         {
             var matches = context.TransactionMatches.ToList();
+            var match = matches.FirstOrDefault(x => Matches(transaction_description, x)).IfNotNull(x => x.TransactionType);
+            return match ?? TransactionType.Missing;
+        }
 
-            return matches.FirstOrDefault(x => Matches(transaction_description, x)).IfNotNull(x => x.TransactionType) ?? TransactionType.Missing;
+        public virtual TransactionType Find(string transaction_type, string transaction_description)
+        {
+            var matches = context.TransactionMatches.ToList();
+            var type_match = matches.FirstOrDefault(x => Matches(transaction_type, x)).IfNotNull(x => x.TransactionType);
+            var description_match = matches.FirstOrDefault(x => Matches(transaction_description, x)).IfNotNull(x => x.TransactionType);
+
+            return type_match ?? description_match ?? TransactionType.Missing;
         }
 
         public virtual bool Matches(string transaction_description, TransactionMatch match)

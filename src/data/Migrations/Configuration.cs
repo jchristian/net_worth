@@ -22,6 +22,26 @@ namespace data.Migrations
                 .Select(x => new TransactionMatch { TransactionType = x, Description = x.ToString(), TransactionMatchType = TransactionMatchType.ExactMatch }).ToArray());
 
             context.SaveChanges();
+
+            new VanguardSeedData().Seed(context);
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
