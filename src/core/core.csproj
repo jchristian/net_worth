@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>core</RootNamespace>
     <AssemblyName>core</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -33,16 +33,25 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="LumenWorks.Framework.IO">
-      <HintPath>..\..\packages\LumenWorks.Framework.IO.3.8.0\lib\net20\LumenWorks.Framework.IO.dll</HintPath>
+    <Reference Include="FluentAssertions, Version=3.1.229.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentAssertions.3.1.229\lib\net45\FluentAssertions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FluentAssertions.Core, Version=3.1.229.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentAssertions.3.1.229\lib\net45\FluentAssertions.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="LumenWorks.Framework.IO, Version=3.8.2.0, Culture=neutral, PublicKeyToken=5ad3ea2f85776344, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\LumenWorksCsvReader.3.8.2\lib\net20\LumenWorks.Framework.IO.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="MoreLinq">
       <HintPath>..\..\packages\morelinq.1.1.0\lib\net35\MoreLinq.dll</HintPath>
@@ -56,23 +65,37 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="YSQ.core">
-      <HintPath>..\..\packages\YahooStockQuotes.1.0.1\lib\net40\YSQ.core.dll</HintPath>
+    <Reference Include="YSQ.core, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\YahooStockQuotes.1.0.6\lib\YSQ.core.dll</HintPath>
+      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="commands\AddBrokerageTransactionsCommand.cs" />
     <Compile Include="commands\AssociateSecurityCommand.cs" />
     <Compile Include="commands\AssociateTransactionsWithMissingSecuritiesCommand.cs" />
     <Compile Include="commands\AssociateTransactionsWithMissingTransactionTypesCommand.cs" />
     <Compile Include="commands\AssociateTransactionTypeCommand.cs" />
     <Compile Include="commands\AutoAssignTradesCommand.cs" />
+    <Compile Include="commands\AutoCreateLotsCommand.cs" />
     <Compile Include="commands\CreateLotsCommand.cs" />
+    <Compile Include="events\BrokerageTransactionsPersisted.cs" />
+    <Compile Include="events\EventBus.cs" />
+    <Compile Include="events\handlers\CreateLotsForBrokerageTransactions.cs" />
+    <Compile Include="events\handlers\IHandle.cs" />
     <Compile Include="exceptions\SoldTooManySharesException.cs" />
     <Compile Include="extensions\DynamicExtensions.cs" />
     <Compile Include="extensions\EnumerableExtensions.cs" />
     <Compile Include="extensions\ObjectExtensions.cs" />
     <Compile Include="extensions\StringExtensions.cs" />
     <Compile Include="importers\FileTransactionImporter.cs" />
+    <Compile Include="importers\filters\DuplicateBrokerageTransactionFilter.cs" />
+    <Compile Include="importers\GenericBrokerageTransactionImporter.cs" />
+    <Compile Include="importers\IFileTransactionImporter.cs" />
+    <Compile Include="importers\InvalidFileForImportException.cs" />
+    <Compile Include="importers\matches\ITransactionImporterMatch.cs" />
+    <Compile Include="importers\matches\TransactionImporterMatches.cs" />
+    <Compile Include="importers\matches\VanguardTransactionImporterMatch.cs" />
     <Compile Include="importers\parsers\CSVFileParser.cs" />
     <Compile Include="importers\parsers\IFileParser.cs" />
     <Compile Include="importers\parsers\mappers\ParsedVanguardCVSFileMapper.cs" />
@@ -81,9 +104,6 @@
     <Compile Include="importers\parsers\readers\VanguardTransactionFileReaderFactory.cs" />
     <Compile Include="importers\parsers\VanguardTransactionParser.cs" />
     <Compile Include="importers\persisters\BrokerageTransactionPersister.cs" />
-    <Compile Include="importers\persisters\DuplicateBrokerageTransactionFilter.cs" />
-    <Compile Include="importers\persisters\ICollectionPersister.cs" />
-    <Compile Include="importers\VanguardTransactionImporter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="queries\Repository.cs" />
     <Compile Include="services\AccountService.cs" />

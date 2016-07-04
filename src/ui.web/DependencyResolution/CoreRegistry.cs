@@ -1,7 +1,5 @@
 ﻿using core.importers.parsers;
-using core.importers.persisters;
 using data.models.contexts;
-using data.models.write;
 using StructureMap.Configuration.DSL;
 using StructureMap.Pipeline;
 
@@ -17,7 +15,6 @@ namespace ui.web.DependencyResolution
                 x.SingleImplementationsOfInterface();
             });
 
-            For<ICollectionPersister<BrokerageTransaction>>().Use<DuplicateBrokerageTransactionFilter>();
             For<DataContext>().Singleton().LifecycleIs(new UniquePerRequestLifecycle());
         }
     }

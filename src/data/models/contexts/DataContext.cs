@@ -19,7 +19,8 @@ namespace data.models.contexts
             modelBuilder.Properties<decimal>().Configure(prop => prop.HasPrecision(19, 6));
 
             modelBuilder.Entity<Trade>().HasRequired(x => x.Position);
-            modelBuilder.Entity<Trade>().HasRequired(x => x.ClosingTransaction);
+            modelBuilder.Entity<Trade>().HasRequired(x => x.ClosingTransaction).WithMany().HasForeignKey(x => x.ClosingTransactionId).WillCascadeOnDelete(false);
+            modelBuilder.Entity<Lot>().HasRequired(x => x.BrokerageTransaction);
             modelBuilder.Entity<SecurityDescription>().HasRequired(x => x.Security);
             modelBuilder.Entity<BrokerageTransaction>().HasRequired(x => x.Account);
             modelBuilder.Entity<BrokerageTransaction>().HasOptional(x => x.Security);
@@ -28,7 +29,6 @@ namespace data.models.contexts
                 .HasMany(x => x.BrokerageTransactions)
                 .WithOptional(x => x.Security)
                 .WillCascadeOnDelete(false);
-
         }
     }
 }

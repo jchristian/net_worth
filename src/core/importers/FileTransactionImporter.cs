@@ -1,23 +1,27 @@
-﻿using System.IO;
+﻿using core.commands;
+using core.importers.filters;
 using core.importers.parsers;
-using core.importers.persisters;
 
 namespace core.importers
 {
-    public class FileTransactionImporter<T>
+    public class VanguardTransactionImporter : IFileTransactionImporter
     {
-        IFileParser<T> file_parser;
-        ICollectionPersister<T> persister;
+        VanguardTransactionParser file_parser;
+        DuplicateBrokerageTransactionFilter filter;
+        AddBrokerageTransactionsCommand add_command;
 
-        public FileTransactionImporter(IFileParser<T> file_parser, ICollectionPersister<T> persister)
+        public VanguardTransactionImporter(VanguardTransactionParser file_parser,
+                                           DuplicateBrokerageTransactionFilter filter,
+                                           AddBrokerageTransactionsCommand add_command)
         {
             this.file_parser = file_parser;
-            this.persister = persister;
+            this.filter = filter;
+            this.add_command = add_command;
         }
 
-        public void Import(StreamReader reader)
+        public void Import(string text)
         {
-            persister.Persist(file_parser.Parse(reader));
+            add_command.Execute(filter.Filter(file_parser.Parse(text)));
         }
     }
 }

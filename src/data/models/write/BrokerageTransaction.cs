@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace data.models.write
 {
@@ -11,6 +12,7 @@ namespace data.models.write
         public DateTime ProcessDate { get; set; }
         public TransactionType TransactionType { get; set; }
         public string TransactionDescription { get; set; }
+        public ICollection<Trade> Trades { get; set; }
         public Security Security { get; set; }
         public int? SecurityId { get; set; }
         public string SecurityDescription { get; set; }

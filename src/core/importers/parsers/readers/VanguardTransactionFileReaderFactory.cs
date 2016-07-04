@@ -1,32 +1,16 @@
 ﻿using System.IO;
-using System.Text;
+using core.extensions;
 
 namespace core.importers.parsers.readers
 {
     public class VanguardTransactionFileReaderFactory
     {
-        public virtual TextReader CreateTransactionReader(StreamReader reader)
+        public virtual TextReader CreateTransactionReader(string text)
         {
-            AdvanceToTransactionSection(reader);
-            return new StringReader(ReadCurrentSection(reader));
-        }
+            var transaction_section_header = "Account Number,Trade Date,Process Date,Transaction Type,Transaction Description,Investment Name,Share Price,Shares,Gross Amount,Net Amount";
 
-        string ReadCurrentSection(StreamReader reader)
-        {
-            var builder = new StringBuilder();
-            string next_line;
-
-            while (string.IsNullOrWhiteSpace((next_line = reader.ReadLine()))) {}
-            builder.AppendLine(next_line);
-
-            while (!string.IsNullOrWhiteSpace((next_line = reader.ReadLine())))
-                builder.AppendLine(next_line);
-            return builder.ToString().Trim();
-        }
-        
-        void AdvanceToTransactionSection(StreamReader reader)
-        {
-            while (!string.IsNullOrWhiteSpace(reader.ReadLine())) { }
+            return new StringReader(text.CutBefore(transaction_section_header)
+                                        .GetLinesUntilBlankLine());
         }
     }
 }

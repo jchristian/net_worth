@@ -5,7 +5,7 @@ using MoreLinq;
 
 namespace core.importers.persisters
 {
-    public class BrokerageTransactionPersister : ICollectionPersister<BrokerageTransaction>
+    public class BrokerageTransactionPersister
     {
         DataContext context;
 

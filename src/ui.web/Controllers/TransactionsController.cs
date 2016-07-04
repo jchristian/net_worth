@@ -58,10 +58,9 @@ namespace ui.web.Controllers
                 if (hpf.ContentLength == 0)
                     continue;
                 var reader = new StreamReader(hpf.InputStream);
-                file_importer.Import(reader);
+                file_importer.Import(reader.ReadToEnd());
             }
 
-            create_lots_command.Execute();
             auto_assign_trades_command.Execute();
 
             return RedirectToAction("Index");
