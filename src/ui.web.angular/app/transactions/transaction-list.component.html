@@ -1,0 +1,13 @@
+<div class='panel panel-primary'>
+    <div class='panel-heading'>
+        Transactions
+    </div>
+    <div class='panel-body'>
+        <transaction-import (importSucceeded)='onImportSucceeded()'></transaction-import>
+        <div><a [routerLink]="['/transactions/open']">Open Transactions</a></div>
+        <div class='table-responsive'>
+            <div *ngIf='transactions.length < 1'>No transactions found</div>
+            <basic-table [items]='transactions'></basic-table>
+        </div>
+    </div>
+</div>

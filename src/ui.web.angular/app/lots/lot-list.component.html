@@ -1,0 +1,30 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        Lots
+    </div>
+    <div class="panel body">
+        <div class="table-responsive">
+            <div *ngIf='lots.length < 1'>No lots found</div>
+            <table class='table' *ngIf='lots.length > 0'>
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Brokerage Transaction Id</th>
+                        <th>Is Open</th>
+                        <th>Remaining Amount</th>
+                        <th>Remaining Shares</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor='let lot of lots'>
+                        <td>{{ lot.id }}</td>
+                        <td>{{ lot.brokerageTransactionId }}</td>
+                        <td>{{ lot.isOpen }}</td>
+                        <td>{{ lot.remainingAmount | currency:'USD':true:'1.2-2' }}</td>
+                        <td>{{ lot.remainingShares }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,12 @@
+<div class='panel panel-primary'>
+    <div class='panel-heading'>
+        Securities
+    </div>
+    <div class='panel-body'>
+        <transaction-import (importSucceeded)='onImportSucceeded()'></transaction-import>
+        <div class='table-responsive'>
+            <div *ngIf='openTransaction.length < 1'>No transactions found</div>
+            <basic-table [items]='openTransaction'></basic-table>
+        </div>
+    </div>
+</div>

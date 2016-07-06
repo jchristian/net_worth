@@ -1,0 +1,11 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        Trades
+    </div>
+    <div class="panel body">
+        <div class="table-responsive">
+            <div *ngIf='trades.length < 1'>No trades found</div>
+            <basic-table [items]='trades'></basic-table>
+        </div>
+    </div>
+</div>

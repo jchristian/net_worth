@@ -1,0 +1,30 @@
+<div class='panel panel-primary'>
+    <div class='panel-heading'>
+        Securities
+    </div>
+    <div class='panel-body'>
+        <div class='table-responsive'>
+            <div *ngIf='securities.length < 1'>No securities found</div>
+            <table class='table' *ngIf='securities.length > 0'>
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Ticker</th>
+                        <th>Name</th>
+                        <th>Descriptions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor='let security of securities'>
+                        <td>{{ security.id }}</td>
+                        <td>{{ security.ticker }}</td>
+                        <td>{{ security.name }}</td>
+                        <td>
+                            <a [routerLink]="['/security/' + security.id + '/securityDescriptions']">Descriptions</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

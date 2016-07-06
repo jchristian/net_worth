@@ -27,3 +27,5 @@ db_dev.rb
 ChimneyCakes/
 gilded_rose/
 tetris_js/
+node_modules
+packages
